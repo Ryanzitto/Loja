@@ -225,7 +225,7 @@ const Titulo = styled.h1`
     background-color: white;
     position: absolute;
     z-index: 1;
-    margin-top: -50px;
+    margin-top: -45px;
     padding-left: 10px;
     padding-right: 10px;
     color: #141414e1;

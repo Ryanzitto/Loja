@@ -154,11 +154,14 @@ font-size: 20px;
 text-align: center;
 text-decoration: line-through;
 color: #181818d5;
+margin: 0;
 `
 const PreçoFinal = styled.h1`
 font-size: 20px;
 text-align: center;
 color: red;
+margin: 0;
+margin-bottom: 10px;
 `
 const ContainerBotoes = styled.div`
 display:flex;

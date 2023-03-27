@@ -190,7 +190,7 @@ const Carrinho = () => {
                 })}
                 { sacola.length > 0 ?            
                 <SubtotalContainer>
-                    <Subtotal>{`${preco.toFixed(2)} R$`}</Subtotal>
+                    <Subtotal>{`R$ ${preco.toFixed(2)}`}</Subtotal>
                 <Finalizar onChange={()=>{
                     
                 }}>Finalizar Compra</Finalizar>

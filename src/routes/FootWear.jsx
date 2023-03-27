@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Footer from "../components/Footer";
 
 import { useContext } from 'react'
+import { useState } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
 
 const data = [{
@@ -243,6 +244,15 @@ const Moletons = () => {
          setSacola([...sacola, indice])
          console.log(sacola)
     }
+    
+    const [source, setSource] = useState('./img/hear-empty.png')
+
+    const toggle = () => {
+        if (source === "./img/hear-empty.png"){
+            setSource('./img/heart-full.png')
+        }
+        else {setSource('./img/hear-empty.png')}
+    }
 
     return (
         <div>
@@ -264,7 +274,7 @@ const Moletons = () => {
                                 <Adcionar onClick={() => {                          
                                     add(indice)
                                 }} src="./img/add.png"/>
-                                <Favoritar src="./img/hear-empty.png"/>
+                                <Favoritar onClick={toggle} src={source}/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )       
