@@ -209,7 +209,7 @@ border: none;
 border-radius: 5px;
 font-size: 14px;
 font-weight: 600;
-`,_1=()=>{const[e,t]=N.useState(0),{carrinhoEstado:n,toggleCarrinhoEstado:r}=N.useContext(Lt),{sacola:o,setSacola:i}=N.useContext(Lt);return N.useEffect(()=>{t(o.reduce((l,a)=>l+a.preço,0))},[o]),S("div",{children:W(c1,{children:[S(d1,{children:S(f1,{onClick:()=>{r()},src:"./img/close.png"})}),W(p1,{children:[o.length<1?W(h1,{children:[S(m1,{children:"Carrinho"}),S(g1,{children:"Nenhum item ainda, vá comprar!"})]}):null,o.map(l=>(console.log(l),W(v1,{children:[S(y1,{src:l.url}),W(w1,{children:[S(x1,{children:`${l.nome} - ${l.cor} , ${l.tamanho}`}),S(S1,{children:`${l.preço.toFixed(2)} R$`})]}),S(k1,{onClick:()=>{i(o.filter(a=>JSON.stringify(a)!==JSON.stringify(l)))},src:"./img/trash.png"})]}))),o.length>0?W(C1,{children:[S(E1,{children:`${e.toFixed(2)} R$`}),S(P1,{onChange:()=>{},children:"Finalizar Compra"})]}):null]})]})})},Hr={textDecoration:"none",color:"black"},R1=k.div`
+`,_1=()=>{const[e,t]=N.useState(0),{carrinhoEstado:n,toggleCarrinhoEstado:r}=N.useContext(Lt),{sacola:o,setSacola:i}=N.useContext(Lt);return N.useEffect(()=>{t(o.reduce((l,a)=>l+a.preço,0))},[o]),S("div",{children:W(c1,{children:[S(d1,{children:S(f1,{onClick:()=>{r()},src:"./img/close.png"})}),W(p1,{children:[o.length<1?W(h1,{children:[S(m1,{children:"Carrinho"}),S(g1,{children:"Nenhum item ainda, vá comprar!"})]}):null,o.map(l=>(console.log(l),W(v1,{children:[S(y1,{src:l.url}),W(w1,{children:[S(x1,{children:`${l.nome} - ${l.cor} , ${l.tamanho}`}),S(S1,{children:`${l.preço.toFixed(2)} R$`})]}),S(k1,{onClick:()=>{i(o.filter(a=>JSON.stringify(a)!==JSON.stringify(l)))},src:"./img/trash.png"})]}))),o.length>0?W(C1,{children:[S(E1,{children:`R$ ${e.toFixed(2)}`}),S(P1,{onChange:()=>{},children:"Finalizar Compra"})]}):null]})]})})},Hr={textDecoration:"none",color:"black"},R1=k.div`
 width: 20vw;
 height: 100vh;
 background-color: #ffffff;
@@ -750,7 +750,7 @@ margin-bottom: -25px;
     background-color: white;
     position: absolute;
     z-index: 1;
-    margin-top: -50px;
+    margin-top: -45px;
     padding-left: 10px;
     padding-right: 10px;
     color: #141414e1;
@@ -895,10 +895,13 @@ font-size: 20px;
 text-align: center;
 text-decoration: line-through;
 color: #181818d5;
+margin: 0;
 `,Ay=k.h1`
 font-size: 20px;
 text-align: center;
 color: red;
+margin: 0;
+margin-bottom: 10px;
 `,Ly=k.div`
 display:flex;
 justify-content: center;
@@ -957,14 +960,15 @@ height: 100vh;
 display: flex;
 flex-direction: row;
 overflow-x: hidden;
+
 ::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
   height: 8px;
   background-color: #aaa; 
 }
 ::-webkit-scrollbar-thumb {
   background: #000;
-  border-radius: 5px;;
+  border-radius: 5px;
 }
 @media only screen and (max-width: 1000px) {
   flex-direction: column;
@@ -979,7 +983,7 @@ height:100vh;
   }
 `,Uy=k.div`
 width: 80vw;
-height: 2500px;
+height: 2550px;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -1217,7 +1221,7 @@ height: 20px;
 padding:3px;
 cursor: pointer;
 margin-left: 50px;
-`,vw=()=>{const{sacola:e,setSacola:t}=N.useContext(Lt),n=r=>{t([...e,r]),console.log(e)};return S("div",{children:W(iw,{children:[S(lw,{children:S(Fo,{})}),W(aw,{children:[ow.map(r=>W(sw,{children:[W(uw,{children:[S(cw,{src:r.url}),S(dw,{src:r.urlSubImage})]}),S(fw,{children:r.colecao}),W(pw,{children:[r.preço.toFixed(2)," R$"]}),W(hw,{children:[S(mw,{onClick:()=>{n(r)},src:"./img/add.png"}),S(gw,{src:"./img/hear-empty.png"})]})]})),S(Uo,{})]})]})})},yw=[{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Preto",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-BRANCO-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Branco",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-BEGE-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Bege",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-PRETO-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Preto",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-4-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"branco",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-AZUL-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,promo:52.43,colecao:"Cap00",cor:"Azul",tamanho:"P"}],ww=k.div`
+`,vw=()=>{const{sacola:e,setSacola:t}=N.useContext(Lt),n=l=>{t([...e,l]),console.log(e)},[r,o]=N.useState("./img/hear-empty.png"),i=()=>{o(r==="./img/hear-empty.png"?"./img/heart-full.png":"./img/hear-empty.png")};return S("div",{children:W(iw,{children:[S(lw,{children:S(Fo,{})}),W(aw,{children:[ow.map(l=>W(sw,{children:[W(uw,{children:[S(cw,{src:l.url}),S(dw,{src:l.urlSubImage})]}),S(fw,{children:l.colecao}),W(pw,{children:[l.preço.toFixed(2)," R$"]}),W(hw,{children:[S(mw,{onClick:()=>{n(l)},src:"./img/add.png"}),S(gw,{onClick:i,src:r})]})]})),S(Uo,{})]})]})})},yw=[{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Preto",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-BRANCO-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Branco",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/BONE-BEGE-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Bege",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-PRETO-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"Preto",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-4-900x900.png",descricao:"Boné five panel",preço:74.9,colecao:"Cap00",cor:"branco",tamanho:"P"},{tipo:"boné",nome:"Boné Wanted",url:"https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-AZUL-ALTERADO-900x900.png",descricao:"Boné five panel",preço:74.9,promo:52.43,colecao:"Cap00",cor:"Azul",tamanho:"P"}],ww=k.div`
 display: flex;
 width:100vw;
 height: 100vh;
