@@ -8,6 +8,8 @@ const data = [
     {
     tipo: "boné",
     nome: "Boné Wanted",
+    tamanho: "P",
+    cor: "Preto",
     url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",
     descricao: "Boné five panel",
     preço: 74.90,
@@ -29,6 +31,8 @@ const data = [
 {
     tipo: "boné",
     nome: "Boné Wanted",
+    cor: "Preto",
+    tamanho: "P",
     url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-PRETO-ALTERADO-900x900.png",
     descricao: "Boné five panel",
     preço: 74.90,
@@ -232,14 +236,12 @@ const Titulo = styled.h1`
 `
 
 
-
 const MaisVendidos = () => {
     
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
     const add = (indice) =>{
          setSacola([...sacola, indice])
-         console.log(sacola)
     }
     return (
         <>
@@ -261,12 +263,11 @@ const MaisVendidos = () => {
                                 <Adcionar onClick={() => {                          
                                     add(indice)
                                 }} src="./img/add.png"/>
-                                <Favoritar src="./img/hear-empty.png"/>
+                                <Favoritar src="./img/heart-empty.png"/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )       
                     })}
-                    {/* <Footer/> */}
                 </Container> 
             </ContainerGeral>  
 

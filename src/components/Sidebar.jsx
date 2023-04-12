@@ -53,7 +53,7 @@ text-align: center;
 
 const ListNav = styled.div`
 width: 100%;
-height: 30%;
+height: 65%;
 display: flex;
 flex-direction: column;
 justify-content: space-around;
@@ -65,6 +65,7 @@ align-items: center;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    height: 30%;
   }
 @media only screen and (max-width: 800px) {
     display: flex;
@@ -93,7 +94,7 @@ display: flex;
 align-items: center;
 
 &:hover{
-    background-color: #e4e4e4;
+    background-color: #58585814;
 }
 @media only screen and (max-width: 1000px) {
     width: 100px;

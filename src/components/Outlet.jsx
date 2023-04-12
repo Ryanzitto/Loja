@@ -252,7 +252,7 @@ const Outlet = () => {
                                 <Adcionar onClick={() => {                          
                                     add(indice)
                                 }} src="./img/add.png"/>
-                                <Favoritar src="./img/hear-empty.png"/>
+                                <Favoritar src="./img/heart-empty.png"/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )       

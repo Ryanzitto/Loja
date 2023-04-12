@@ -12,7 +12,6 @@ const ContainerGeral = styled.div`
 width: 100vw;
 height: 100vh;
 display: flex;
-flex-direction: row;
 overflow-x: hidden;
 
 ::-webkit-scrollbar {
@@ -31,6 +30,7 @@ overflow-x: hidden;
 const Nav = styled.div`
 width: 20vw;
 height:100vh;
+position: relative;
 
 @media only screen and (max-width: 1000px) {
   width: 0;
@@ -39,7 +39,7 @@ height:100vh;
 `
 const Body = styled.div`
 width: 80vw;
-height: 2550px;
+height: 2300px;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -75,13 +75,11 @@ const imagensCarrosel = [
                   <Carousel images={imagensCarrosel}/>
                   <Tags/>
                   <MaisVendidos/>
-                  <Tags/>
                   <BannerOutLet/>     
                   <Outlet/>
                   <FooterContainer>
                       <Footer/>
-                  </FooterContainer>
-                 
+                  </FooterContainer>               
               </Body>
             </ContainerGeral>          
     );

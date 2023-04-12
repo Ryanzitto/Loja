@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
+import Favoritar from "../components/teste";
 
 import { useContext } from 'react'
 import { useState } from 'react'
@@ -16,7 +17,7 @@ const data = [{
     urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/160589-1000-1000/350015_23-2.jpg?v=637874537716200000",
     descricao: "Tenis bonito pro pé",
     preço: 139.90,
-    colecao: "Sneackers00"
+    colecao: "Sneackers00",
 },
 {
     tipo: "Tênis",
@@ -228,13 +229,6 @@ margin-right: 50px;
     }
 }
 `
-const Favoritar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-margin-left: 50px;
-`
 
 const Moletons = () => {
   
@@ -245,14 +239,6 @@ const Moletons = () => {
          console.log(sacola)
     }
     
-    const [source, setSource] = useState('./img/hear-empty.png')
-
-    const toggle = () => {
-        if (source === "./img/hear-empty.png"){
-            setSource('./img/heart-full.png')
-        }
-        else {setSource('./img/hear-empty.png')}
-    }
 
     return (
         <div>
@@ -274,7 +260,7 @@ const Moletons = () => {
                                 <Adcionar onClick={() => {                          
                                     add(indice)
                                 }} src="./img/add.png"/>
-                                <Favoritar onClick={toggle} src={source}/>
+                                <Favoritar/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )       

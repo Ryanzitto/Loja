@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
+import Favoritar from "../components/teste";
 
 import { useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
@@ -175,13 +176,6 @@ margin-right: 50px;
     }
 }
 `
-const Favoritar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-margin-left: 50px;
-`
 
 const HeadWear = () => {
   
@@ -211,7 +205,7 @@ const HeadWear = () => {
                                 <Adcionar onClick={() => {                          
                                     add(indice)
                                 }} src="./img/add.png"/>
-                                <Favoritar src="./img/hear-empty.png"/>
+                                <Favoritar/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )       
