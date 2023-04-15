@@ -2,72 +2,11 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
-import Favoritar from "../components/teste";
+import Favoritar from "../components/FavButton";
 
 import { useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
 
-const data = [{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BERMUDA-2-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 109.90,
-    colecao: "Berm00",
-    cor: "Preto",
-    tamanho: "G"
-},
-{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BERMUDA-5-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 109.90,
-    colecao: "Berm00",
-    cor: "Branco",
-    tamanho: "G"
-},
-{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BERMUDA-4-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 10.90,
-    colecao: "Berm00",
-    cor: "Marrom",
-    tamanho: "G"
-},
-{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2021/05/still-bermuda-preto-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 89.90,
-    colecao: "Berm00",
-    cor: "Preto",
-    tamanho: "G"
-},
-{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2020/08/Bermuda-Moletom-Wanted-Wu-Tang-Preto-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 89.90,
-    colecao: "Berm00",
-    cor: "Preto",
-    tamanho: "G"
-},
-{
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2020/08/Bermuda-Moletom-Wanted-In-God-We-Trust-Cinza-900x900.jpg",
-    descricao: "Bermuda Wanted",
-    preço: 89.90,
-    colecao: "Berm00",
-    cor: "Cinza",
-    tamanho: "G"
-},
-]
 
 const Containergeral = styled.div`
 display: flex;
@@ -127,12 +66,6 @@ margin-top: 30px;
 const ImagemProduto = styled.img`
 cursor: pointer;
 `
-const SegundaImagem = styled.img`
-width: 200px;
-height :200px;
-position: absolute;
-z-index: -1;
-`
 const Colecao = styled.p`
 font-size: 12px;
 text-align: center;
@@ -161,7 +94,6 @@ margin-right: 50px;
 
 &:hover{
     animation: animacao 0.5s ease both;
-
     @keyframes animacao {
         from{
             width:20px;
@@ -176,7 +108,7 @@ margin-right: 50px;
 }
 `
 
-const Bermudas = () => {
+const Bermudas = ({data}) => {
   
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
@@ -186,33 +118,28 @@ const Bermudas = () => {
     }
 
     return (
-        <div>
-            <Containergeral>
-                <Nav>
-                    <Sidebar/>
-                </Nav>
-                <Container>
-                    {data.map((indice)=>{
-                        return( 
-                        <ContainerProduto>
+        <Containergeral>
+            <Nav>
+                <Sidebar/>
+            </Nav>
+            <Container>
+                {data.map((indice)=>{
+                    return( 
+                        <ContainerProduto key={indice.id}>
                             <Produto>
                                 <ImagemProduto src={indice.url}/>
                             </Produto>
                             <Colecao>{indice.colecao}</Colecao>
                             <PreçoProduto>{indice.preço.toFixed(2)} R$</PreçoProduto>
                             <ContainerBotoes>
-                                <Adcionar onClick={() => {                          
-                                    add(indice)
-                                }} src="./img/add.png"/>
-                                <Favoritar/>
+                                <Adcionar onClick={() => {add(indice)}} src="./img/add.png"/>
+                                <Favoritar indice={indice}/>
                             </ContainerBotoes>
                         </ContainerProduto>
-                        )       
-                    })}
-                    <Footer/>
-                </Container>    
-            </Containergeral>
-        </div>
+                        )})}
+                <Footer/>
+            </Container>    
+        </Containergeral>
     );
 }
  

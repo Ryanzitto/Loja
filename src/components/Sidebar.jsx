@@ -1,27 +1,27 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
-import React from "react";
-import styled from 'styled-components'
-import Carrinho from './Carrinho';
-
 import { useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
+import { FavoritosContext } from '../context/FavoritosContext';
+import React from "react";
+import styled from 'styled-components'
+
+import Carrinho from './Carrinho';
 
 const linkStyle = {
     textDecoration: "none",
     color: "black",
-  };
+};
 
 const Container = styled.div`
-width: 20vw;
-height: 100vh;
-background-color: #ffffff;
-display: flex;
-flex-direction: column;
-align-items: center;
-border-right: 1px solid #e2e2e2;
-position: fixed;
-z-index: 1;
+    width: 20vw;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #e2e2e2;
+    position: fixed;
+    z-index: 1;
 
 @media only screen and (max-width: 1000px) {
     width: 100vw;
@@ -29,7 +29,7 @@ z-index: 1;
     flex-direction: row;
     border-bottom: 1px solid #e2e2e2;
     position: relative;
-  }
+}
   @media only screen and (max-width: 800px) {
     width: 100vw;
     height: 20vh;
@@ -37,7 +37,7 @@ z-index: 1;
     border-bottom: none;
     background-color: transparent;
     position: relative;
-  }
+}
 `
 const LogoContainer = styled.div`
 width: 100%;
@@ -46,9 +46,10 @@ display: flex;
 justify-content: center;
 align-items: center;
 text-align: center;
+
 @media only screen and (max-width: 800px) {
     width: 50%
-  }
+}
 `
 
 const ListNav = styled.div`
@@ -66,7 +67,8 @@ align-items: center;
     align-items: center;
     border-radius: 10px;
     height: 30%;
-  }
+}
+
 @media only screen and (max-width: 800px) {
     display: flex;
     flex-direction: row;
@@ -74,16 +76,17 @@ align-items: center;
     align-items: center;
     background-color: #cfcfcf21;
     border-radius: 10px;
-  }
+}
 `
 
 const Logo = styled.img`
 width: 100px;
 height: 80px;
 cursor: pointer;
+
 @media only screen and (max-width: 1000px) {
     display: none;
-  }
+}
 `
 const Section = styled.div`
 width: 200px;
@@ -125,16 +128,16 @@ border-bottom: 1px solid #e2e2e2;
 position: relative;
 
 @media only screen and (max-width: 1000px) {
-     border: none; 
-     margin-top: 0px;
-  }
+    border: none; 
+    margin-top: 0px;
+}
 `
 const IconeCarrinho = styled.img`
 width: 50px;
 height: 50px;
 cursor: pointer;
 
-  @media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
     width: 35px;
     height: 35px;
     display: flex;
@@ -144,7 +147,7 @@ cursor: pointer;
     background-color: #cfcfcf21;
     border-radius: 10px;
     padding: 15px;
-  }
+}
 `
 const AlertaContainer = styled.div`
 width: 25px;
@@ -166,15 +169,19 @@ margin-top: 3px;
 const Sidebar = () => {
 
     const {carrinhoEstado, toggleCarrinhoEstado} = useContext(CarrinhoContext)
+
+    const {favorito} = useContext(FavoritosContext)
     
-    const {sacola, setSacola} = useContext(CarrinhoContext)
+    const {sacola} = useContext(CarrinhoContext)
 
     
     return (
         <Container>
             {carrinhoEstado === "aberto" ? <Carrinho/> : null}
             <LogoContainer>
-                <Logo src="./img/logo.jfif"/>
+                <Link to="/Home" style={linkStyle}>
+                    <Logo src="./img/logo.jfif"/>
+                </Link>
             </LogoContainer>
             <ListNav>
                 <Link to="/Home" style={linkStyle}>
@@ -207,18 +214,24 @@ const Sidebar = () => {
                         <Texto>Headwear</Texto>
                     </Section>
                 </Link >
+                <Link to="/Favorites" style={linkStyle}>
+                    <Section>
+                        <Icon src="./img/heart-full.png"/>
+                        <Texto>Favorites</Texto>
+                        {favorito.length > 0 &&
+                        <AlertaContainer>
+                            <Alerta>{favorito.length}</Alerta>
+                        </AlertaContainer>}
+                    </Section>
+                </Link >
             </ListNav>
-                    <CarrinhoContainer>
-                        <IconeCarrinho onClick={() => {
-                            console.log(sacola)
-                            toggleCarrinhoEstado()
-                        }} src="./img/add.png"/>
-                        {sacola.length > 0 ? 
-                            <AlertaContainer>
-                                <Alerta>{sacola.length}</Alerta>
-                            </AlertaContainer> : null}
-
-                    </CarrinhoContainer>
+                <CarrinhoContainer>
+                    <IconeCarrinho onClick={() => {toggleCarrinhoEstado()}} src="./img/add.png"/>
+                    {sacola.length > 0 ? 
+                        <AlertaContainer>
+                            <Alerta>{sacola.length}</Alerta>
+                        </AlertaContainer> : null}
+                </CarrinhoContainer>
         </Container>
     );
 }

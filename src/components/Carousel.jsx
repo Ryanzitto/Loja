@@ -2,33 +2,32 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 
-
 const Container = styled.div`
-width:100%;
+width: 100%;
 overflow-x: hidden;
 overflow-y: hidden;
 display: flex;
 justify-content: center;
 flex-direction: column;
-
-@media only screen and (max-width: 1000px) {
-  
-  }
+margin-left: 8px;
 `
 const ImageContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
 position: relative;
+border-radius: 50px;
 `
 const ButtonAnterior = styled.img`
 position: absolute;
 cursor: pointer;
 opacity: 0.4;
 margin-left: 950px;
+
 &:hover{
   opacity: 0.9
 }
+
 @media only screen and (min-width: 1550px) {
   margin-left: 1150px;
 }
@@ -39,9 +38,11 @@ transform: rotate(0.5turn);
 cursor: pointer;
 opacity: 0.4;
 margin-right: 950px;
+
 &:hover{
   opacity: 0.9
 }
+
 @media only screen and (min-width: 1550px) {
   margin-right: 1150px;
 }
@@ -53,7 +54,7 @@ filter: grayscale(0.5);
 
 @media only screen and (max-width: 1000px) {
   flex-direction: column;
-  }  
+}  
 @media only screen and (min-width: 1550px) {
   height: 550px;
   width: 1550px;
@@ -84,7 +85,6 @@ const Carousel = ({ images }) => {
   
 
   return (
-    <>
     <Container>
         <ImageContainer>
             <Image src={images[currentIndex]} alt="carousel"/>
@@ -92,7 +92,6 @@ const Carousel = ({ images }) => {
             <ButtonProximo  src="./img/sym.png" onClick={nextSlide}/>
         </ImageContainer>
     </Container>
-    </>
   );
 };
 

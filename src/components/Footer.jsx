@@ -8,17 +8,25 @@ width: 100%;
 display: flex;
 align-items: center;
 margin-top: 50px;
+align-self: flex-end;
 `
 
 const Logo = styled.img`
-width: 150px;
-height: 110px;
+width: 180px;
+height: 130px;
 opacity: 0.4;
 border-radius: 10px;
 margin-left: 200px;
-
-
 cursor: pointer;
+
+&:hover{
+  animation: animate 1s ease both;
+  @keyframes animate {
+    to{
+      opacity: 0.9;
+    }
+  }
+}
 @media only screen and (max-width: 800px) {
    margin-left: 0px;
    margin-top: 0px;
@@ -40,20 +48,7 @@ flex-direction: column;
 justify-content: center;
 align-items: flex-start;
 `
-const Icon = styled.img`
-width: 25px;
-height: 25px;
-cursor: pointer;
-filter: grayscale(0.8);
 
-&:hover{
-    filter: grayscale(0);
-}
-@media only screen and (max-width: 600px) {
-   width: 20px;
-   height: 20px;
-}
-`
 const Right = styled.div`
 flex: 1;
 width: 100%;
@@ -62,41 +57,10 @@ display: flex;
 justify-content: space-evenly;
 align-items: center;
 flex-direction: row;
-`
-const Titulo = styled.h1`
-font-size: 75px;
-color: transparent;
--webkit-text-stroke: 1px white;
--webkit-text-stroke-color: #ffffff;
-opacity: 0.7;
-position: relative;
-cursor: pointer;
 
-::after{
-  content: "CONTATO";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #ffffff;
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-&:hover{
-  -webkit-text-stroke: 1px #ffffff;
-  opacity: 1;
-  ::after{
-    animation: moveText 1s linear both;
-    @keyframes moveText{
-      to{
-        width: 100%;     
-      }
-    }
-  }
-}
 @media only screen and (max-width: 600px) {
-   font-size: 30px;
-  }
+  font-size: 30px;
+}
 `
 const List = styled.ul`
     gap: 20px;
@@ -122,7 +86,7 @@ font-size: 14px;
 }
 @media only screen and (max-width: 600px) {
    font-size: 10px;
-  }
+}
 `
 const Line = styled.div`
 height: 50%;
@@ -143,7 +107,7 @@ font-size: 10px;
 }
 @media only screen and (max-width: 600px) {
    font-size: 10px;
-  }
+}
 `
 
 const Footer = () => {
@@ -152,20 +116,20 @@ const Footer = () => {
             <Left>
                 <Logo src="./img/logo.jfif"/>
             </Left>   
-            <Line></Line>
+            <Line/>
             <Right>
-            <List>
+              <List>
                 <ListItem>GITHUB</ListItem>
                 <ListItem>LINKEDIN</ListItem>
                 <ListItem>PORTIFOLIO</ListItem>
-            </List>
-            <Line></Line>
-            <List2>
+              </List>
+            <Line/>
+              <List2>
                 <ListItem2>WHO WE ARE</ListItem2>
                 <ListItem2>CONTACT</ListItem2>
                 <ListItem2>SIKE LIMITED</ListItem2>
                 <ListItem2>JUST DO THAT</ListItem2>
-            </List2>
+              </List2>
             </Right>       
         </Container>
     );

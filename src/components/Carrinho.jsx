@@ -1,9 +1,6 @@
-
-import React, { useState , useEffect} from "react";
-import styled from 'styled-components'
-
-import { useContext } from 'react'
+import React, { useState , useEffect, useContext} from "react";
 import { CarrinhoContext } from '../context/CarrinhoContext';
+import styled from 'styled-components'
 
 const ContainerGeral = styled.div`
 width: 20vw;
@@ -42,11 +39,11 @@ overflow-x: hidden;
     min-height: 1100px;
     max-height: 1100px;
     width: 40vw;
-  }
+}
 @media only screen and (min-width: 1500px) {
     min-height: 1800px;
     max-height: 1800px;
-  }
+}
 `
 const Header = styled.div`
 width: 100%;
@@ -136,7 +133,6 @@ const Subtotal = styled.h1`
 font-size: 30px;
 color: black;
 cursor: pointer;
-
 `
 const Finalizar = styled.button`
 width: 120px;
@@ -152,7 +148,8 @@ font-weight: 600;
 const Carrinho = () => {
 
     const [preco, setPreco] = useState(0)
-    const {carrinhoEstado, toggleCarrinhoEstado} = useContext(CarrinhoContext)
+
+    const {toggleCarrinhoEstado} = useContext(CarrinhoContext)
 
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
@@ -161,44 +158,34 @@ const Carrinho = () => {
 	}, [sacola])
     
     return ( 
-        <div>
-            <ContainerGeral>
-                <Header>
-                    <BtnClose onClick={() => {toggleCarrinhoEstado()}}
-                    src="./img/close.png"/>
-                </Header>
+        <ContainerGeral>
+            <Header>
+                <BtnClose onClick={() => {toggleCarrinhoEstado()}} src="./img/close.png"/>
+            </Header>
                 <Body>
-                {sacola.length < 1 ? (
-                    <TopBody>
-                        <Titulo>Carrinho</Titulo>
-                        <Estado>Nenhum item ainda, vá comprar!</Estado>
-                    </TopBody> ) : null}
-                {sacola.map((indice) => { 
-                    console.log(indice)
-                return (
-                        <ItemContainer>
-                            <ImagemProduto src={indice.url} />
-                            <Infos>
-                                <Nome>{`${indice.nome} - ${indice.cor} , ${indice.tamanho}`}</Nome>
-                                <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
-                            </Infos>
-                            <IconeDescarte 
-                            onClick={() => {setSacola(sacola.filter((item) => JSON.stringify(item) !== JSON.stringify(indice)))}}
-                            src="./img/trash.png"/>
-                        </ItemContainer>
-                    );
-                })}
-                { sacola.length > 0 ?            
-                <SubtotalContainer>
-                    <Subtotal>{`R$ ${preco.toFixed(2)}`}</Subtotal>
-                <Finalizar onChange={()=>{
-                    
-                }}>Finalizar Compra</Finalizar>
-
-                </SubtotalContainer> : null}
-            </Body>
-            </ContainerGeral>
-        </div>
+                    {sacola.length < 1 ? 
+                        <TopBody>
+                            <Titulo>Carrinho</Titulo>
+                            <Estado>Nenhum item ainda, vá comprar!</Estado>
+                        </TopBody> : null}
+                    {sacola.map((indice) => { 
+                        return (
+                            <ItemContainer key={indice.id}>
+                                <ImagemProduto src={indice.url} />
+                                <Infos>
+                                    <Nome>{`${indice.nome} - ${indice.cor} , ${indice.tamanho}`}</Nome>
+                                    <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
+                                </Infos>
+                                <IconeDescarte onClick={() => {setSacola(sacola.filter((item) => JSON.stringify(item) !== JSON.stringify(indice)))}} src="./img/trash.png"/>
+                            </ItemContainer>
+                    )})}
+                    {sacola.length > 0 ?            
+                        <SubtotalContainer>
+                            <Subtotal>{`R$ ${preco.toFixed(2)}`}</Subtotal>
+                            <Finalizar onClick={()=>{}}>Finalizar Compra</Finalizar>
+                        </SubtotalContainer> : null}
+                </Body>
+        </ContainerGeral>
     );
 }
  

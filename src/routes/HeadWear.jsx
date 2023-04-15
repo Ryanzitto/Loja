@@ -2,73 +2,10 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
-import Favoritar from "../components/teste";
+import Favoritar from "../components/FavButton";
 
 import { useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
-
-const data = [{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    colecao: "Cap00",
-    cor: "Preto",
-    tamanho: "P"
-},
-{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-BRANCO-ALTERADO-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    colecao: "Cap00",
-    cor: "Branco",
-    tamanho: "P"
-},
-{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-BEGE-ALTERADO-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    colecao: "Cap00",
-    cor: "Bege",
-    tamanho: "P"
-},
-{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-PRETO-ALTERADO-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    colecao: "Cap00",
-    cor: "Preto",
-    tamanho: "P"
-},
-{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-4-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    colecao: "Cap00",
-    cor: "branco",
-    tamanho: "P"
-},
-{
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-AZUL-ALTERADO-900x900.png",
-    descricao: "Boné five panel",
-    preço: 74.90,
-    promo: 52.43,
-    colecao: "Cap00",
-    cor: "Azul",
-    tamanho: "P"
-},
-]
 
 const Containergeral = styled.div`
 display: flex;
@@ -116,7 +53,6 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 position: relative;
-
 `
 const Produto = styled.div`
 width: 200px;
@@ -128,12 +64,7 @@ margin-top: 30px;
 const ImagemProduto = styled.img`
 cursor: pointer;
 `
-const SegundaImagem = styled.img`
-width: 200px;
-height :200px;
-position: absolute;
-z-index: -1;
-`
+
 const Colecao = styled.p`
 font-size: 12px;
 text-align: center;
@@ -162,7 +93,6 @@ margin-right: 50px;
 
 &:hover{
     animation: animacao 0.5s ease both;
-
     @keyframes animacao {
         from{
             width:20px;
@@ -177,7 +107,7 @@ margin-right: 50px;
 }
 `
 
-const HeadWear = () => {
+const HeadWear = ({data}) => {
   
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
@@ -187,33 +117,28 @@ const HeadWear = () => {
     }
 
     return (
-        <div>
-            <Containergeral>
-                <Nav>
-                    <Sidebar/>
-                </Nav>
-                <Container>
-                    {data.map((indice)=>{
-                        return( 
-                        <ContainerProduto>
-                            <Produto>
-                                <ImagemProduto src={indice.url}/>
-                            </Produto>
-                            <Colecao>{indice.colecao}</Colecao>
-                            <PreçoProduto>{indice.preço.toFixed(2)} R$</PreçoProduto>
-                            <ContainerBotoes>
-                                <Adcionar onClick={() => {                          
-                                    add(indice)
-                                }} src="./img/add.png"/>
-                                <Favoritar/>
-                            </ContainerBotoes>
-                        </ContainerProduto>
-                        )       
-                    })}
+        <Containergeral>
+            <Nav>
+                <Sidebar/>
+            </Nav>
+            <Container>
+                {data.map((indice)=>{
+                    return( 
+                    <ContainerProduto key={indice.id}>
+                        <Produto>
+                            <ImagemProduto src={indice.url}/>
+                        </Produto>
+                        <Colecao>{indice.colecao}</Colecao>
+                        <PreçoProduto>{indice.preço.toFixed(2)} R$</PreçoProduto>
+                        <ContainerBotoes>
+                            <Adcionar onClick={() => {add(indice)}} src="./img/add.png"/>
+                            <Favoritar indice={indice}/>
+                        </ContainerBotoes>
+                    </ContainerProduto>
+                    )})}
                     <Footer/>
-                </Container>    
-            </Containergeral>
-        </div>
+            </Container>    
+        </Containergeral>
     );
 }
  
