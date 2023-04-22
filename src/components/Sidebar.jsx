@@ -23,16 +23,17 @@ const Container = styled.div`
     position: fixed;
     z-index: 1;
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (min-width: 801px) and (max-width: 1000px) {
     width: 100vw;
     height: 20vh;
     flex-direction: row;
-    border-bottom: 1px solid #e2e2e2;
     position: relative;
+    background-color: transparent;
+    
 }
   @media only screen and (max-width: 800px) {
     width: 100vw;
-    height: 20vh;
+    height: 0px;
     flex-direction: row;
     border-bottom: none;
     background-color: transparent;
@@ -48,7 +49,8 @@ align-items: center;
 text-align: center;
 
 @media only screen and (max-width: 800px) {
-    width: 50%
+    width: 50%;
+    display: none;
 }
 `
 
@@ -66,16 +68,17 @@ align-items: center;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    height: 30%;
+    height: 100%;
+    gap: 20px;
 }
-
 @media only screen and (max-width: 800px) {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #cfcfcf21;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     border-radius: 10px;
+    height: 100%;
+    margin-top: 75px;
 }
 `
 
@@ -101,6 +104,10 @@ align-items: center;
 }
 @media only screen and (max-width: 1000px) {
     width: 100px;
+    
+&:hover{
+    background-color: none;
+}
 }
 `
 const Icon = styled.img`
@@ -108,10 +115,18 @@ width: 25px;
 height: 25px;
 cursor: pointer;
 margin-left: 20px;
+
+@media only screen and (max-width: 1000px) {
+background-color: white;
+padding: 10px;
+border-radius: 5px;
+}
+
 `
 const Texto = styled.p`
 font-family: "Roboto", sans-serif;
 margin-left: 20px;
+
 @media only screen and (max-width: 1000px) {
     display: none;
 }
@@ -127,9 +142,20 @@ border-top: 1px solid #e2e2e2;
 border-bottom: 1px solid #e2e2e2;
 position: relative;
 
+@media only screen and (max-width: 800px) {
+    border: none; 
+    margin-top: 0px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
 @media only screen and (max-width: 1000px) {
     border: none; 
     margin-top: 0px;
+}
+@media only screen and (min-width: 1500px) {
+    margin-top: 50px;
 }
 `
 const IconeCarrinho = styled.img`
@@ -137,6 +163,9 @@ width: 50px;
 height: 50px;
 cursor: pointer;
 
+@media only screen and (max-width: 800px) {
+margin-top: 100px;
+}
 @media only screen and (max-width: 1000px) {
     width: 35px;
     height: 35px;
@@ -144,7 +173,7 @@ cursor: pointer;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #cfcfcf21;
+    background-color: white;
     border-radius: 10px;
     padding: 15px;
 }

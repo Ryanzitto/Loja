@@ -1,8 +1,9 @@
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
+import { Link } from 'react-router-dom'
 
-import { useContext } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import { FavoritosContext } from "../context/FavoritosContext";
 import { CarrinhoContext } from "../context/CarrinhoContext";
 
@@ -60,23 +61,11 @@ position: relative;
 `
 const Produto = styled.div`
 width: 200px;
-height: 200px;
 display: flex;
 flex-direction: column;
 margin-top: 30px;
 `
 
-const FavDiv = styled.div`
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background-color: #0000001a;
-z-index: 10;
-position: absolute;
-display: flex;
-justify-content: center;
-align-items: center;
-`
 const ContainerNoFav = styled.div`
 width: 80vw;
 height: 100vh;
@@ -173,20 +162,68 @@ margin-left: 50px;
 }
 `
 
+const Ver = styled.button`
+width: 80px;
+height: 30px;
+border: none;
+border-radius: 5px;
+background-color: #ffffffec;
+font-size: 14px;
+cursor: pointer;
+font-weight: 500;
+text-decoration: underline;
+`
+
 const style = {
     minHeight: "1050px",
 };
 
+const linkStyle = {
+    width: '80px'
+}
 
 const Favoritos = () => {
+
+    const verRef = useRef()
+
+
+
+    const [qualRota, setQualRota] = useState()
 
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
     const {favorito, setFavorito} = useContext(FavoritosContext)
 
-    const add = (indice) =>{
-            setSacola([...sacola, indice])
-            console.log(sacola)
+    const defineQualRota = (indice) =>{
+        if(indice.id > 0 && indice.id <= 9){
+            setQualRota("/Camisas")
+            setTimeout(() => {
+            verRef.current.click()
+            }, 100)
+            console.log(favorito)
+        }
+        else if(indice.id >= 10 && indice.id <= 15){
+            setQualRota("/Bermudas")
+            setTimeout(() => {
+                verRef.current.click()
+                }, 100)
+                console.log(favorito)
+        }
+        else if(indice.id >= 16 && indice.id <= 24){
+            setQualRota("/FootWear")
+            setTimeout(() => {
+                verRef.current.click()
+                }, 100)
+                console.log(favorito)
+        }
+        else if(indice.id >= 25 && indice.id <= 30){
+            setQualRota("/HeadWear")
+            setTimeout(() => {
+                verRef.current.click()
+                }, 100)
+                console.log(favorito)
+        }
+        else{ return }
     }
   
     return (
@@ -199,16 +236,15 @@ const Favoritos = () => {
                         return(          
                             <ContainerProduto key={indice?.id}>
                                 <Produto>
-                                    <FavDiv>
-                                        <FavoriteIcon src="./img/heart.png"/>
-                                    </FavDiv>
+                                        <FavoriteIcon src="./img/heart.png"/>        
                                     <ImagemProduto src={indice?.url}/>
                                 </Produto>
                                 <Colecao>{indice?.colecao}</Colecao>
                                 <PreçoProduto>{indice?.preço?.toFixed(2)} R$</PreçoProduto>
                                 <ContainerBotoes>
-                                    <Adcionar onClick={() => {add(indice)}} src="./img/add.png" sty/>
-                                    <Remover onClick={() => {setFavorito(favorito.filter((item) => JSON.stringify(item) !== JSON.stringify(indice)) , indice.fav = false)}} src="./img/trash.png"/>
+                                    <Link ref={verRef} style={linkStyle} to={qualRota}>
+                                        <Ver onClick={() => {defineQualRota(indice)}}>Ver item</Ver>
+                                    </Link>    
                                 </ContainerBotoes>
                             </ContainerProduto>
                             )})}

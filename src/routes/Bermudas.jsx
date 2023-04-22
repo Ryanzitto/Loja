@@ -3,8 +3,10 @@ import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
 import Favoritar from "../components/FavButton";
+import Adcionar from "../components/AddButton";
+import Especificacoes from "../components/Especificacoes";
 
-import { useContext } from 'react'
+import { useState ,useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
 
 
@@ -84,56 +86,31 @@ width: 120px;
 height: 20px;
 gap: 10px;
 `
-const Adcionar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-position: absolute;
-margin-right: 50px;
 
-&:hover{
-    animation: animacao 0.5s ease both;
-    @keyframes animacao {
-        from{
-            width:20px;
-            height: 20px;
-        }
-        to{
-            width: 23px;
-            height: 23px;
-            transform: translateY(-5px);
-        }
-    }
-}
-`
+const Bermudas = ({data, variacoes}) => {
 
-const Bermudas = ({data}) => {
-  
-    const {sacola, setSacola} = useContext(CarrinhoContext)
+    const [isClicked, setIsClicked] = useState(false)
 
-    const add = (indice) =>{
-         setSacola([...sacola, indice])
-         console.log(sacola)
-    }
+    const [qualItem, setQualItem] = useState()
 
     return (
         <Containergeral>
             <Nav>
                 <Sidebar/>
             </Nav>
+            {isClicked ? <Especificacoes variacoes={variacoes} state={isClicked} setState={setIsClicked} item={qualItem} /> : null}
             <Container>
-                {data.map((indice)=>{
+                {data.map((item)=>{
                     return( 
-                        <ContainerProduto key={indice.id}>
+                        <ContainerProduto key={item.id}>
                             <Produto>
-                                <ImagemProduto src={indice.url}/>
-                            </Produto>
-                            <Colecao>{indice.colecao}</Colecao>
-                            <PreçoProduto>{indice.preço.toFixed(2)} R$</PreçoProduto>
+                                <ImagemProduto src={item.url}/>
+                           </Produto>
+                            <Colecao>{item.colecao}</Colecao>
+                            <PreçoProduto>{item.preço.toFixed(2)} R$</PreçoProduto>
                             <ContainerBotoes>
-                                <Adcionar onClick={() => {add(indice)}} src="./img/add.png"/>
-                                <Favoritar indice={indice}/>
+                            <Adcionar setItem={setQualItem} state={isClicked} setState={setIsClicked} item={item}/>
+                                <Favoritar item={item}/>
                             </ContainerBotoes>
                         </ContainerProduto>
                         )})}

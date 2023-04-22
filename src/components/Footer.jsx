@@ -7,8 +7,12 @@ height: 300px;
 width: 100%;
 display: flex;
 align-items: center;
-margin-top: 50px;
+margin-top: 20px;
 align-self: flex-end;
+
+@media screen and ( max-width: 500px) {
+  flex-direction: column;
+}
 `
 
 const Logo = styled.img`
@@ -16,7 +20,6 @@ width: 180px;
 height: 130px;
 opacity: 0.4;
 border-radius: 10px;
-margin-left: 200px;
 cursor: pointer;
 
 &:hover{
@@ -27,15 +30,13 @@ cursor: pointer;
     }
   }
 }
-@media only screen and (max-width: 800px) {
-   margin-left: 0px;
-   margin-top: 0px;
+
+@media screen and ( max-width: 500px) {
+display: none;
 }
-@media only screen and (max-width: 600px) {
-   width: 100px;
-   height: 75px;
-   margin-left: 0px;
-   margin-top: 0px;
+@media screen and ( min-width: 1600px) {
+width: 220px;
+height: 150px;
 }
 `
 
@@ -46,7 +47,11 @@ flex:1;
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: flex-start;
+align-items: center;
+
+@media screen and ( max-width: 500px) {
+display: none;
+}
 `
 
 const Right = styled.div`
@@ -58,19 +63,30 @@ justify-content: space-evenly;
 align-items: center;
 flex-direction: row;
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   font-size: 30px;
+  flex-direction: column;
 }
 `
 const List = styled.ul`
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
+gap: 20px;
+display: flex;
+flex-direction: column;
+
+@media screen and (max-width: 600px) {
+gap: 2px;
+align-items: center;
+}
 `
 const List2 = styled.ul`
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
+gap: 10px;
+display: flex;
+flex-direction: column;
+
+@media screen and (max-width: 600px) {
+gap: 2px;
+align-items: center;
+}
 `
 const ListItem = styled.li`
 list-style: none;
@@ -88,10 +104,25 @@ font-size: 14px;
    font-size: 10px;
 }
 `
-const Line = styled.div`
+const Line1 = styled.div`
 height: 50%;
 width: 0.2px;
 background-color: #ffffff28;
+
+@media screen and (max-width: 600px) {
+display: none;
+}
+`
+
+const Line2 = styled.div`
+height: 50%;
+width: 0.2px;
+background-color: #ffffff28;
+
+@media screen and (max-width: 600px) {
+  width: 30%;
+  height: 0.2px;
+}
 `
 const ListItem2 = styled.li`
 list-style: none;
@@ -116,14 +147,14 @@ const Footer = () => {
             <Left>
                 <Logo src="./img/logo.jfif"/>
             </Left>   
-            <Line/>
+            <Line1/>
             <Right>
               <List>
                 <ListItem>GITHUB</ListItem>
                 <ListItem>LINKEDIN</ListItem>
                 <ListItem>PORTIFOLIO</ListItem>
               </List>
-            <Line/>
+            <Line2/>
               <List2>
                 <ListItem2>WHO WE ARE</ListItem2>
                 <ListItem2>CONTACT</ListItem2>

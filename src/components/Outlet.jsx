@@ -5,17 +5,28 @@ import { useContext } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext';
 
 import Favoritar from "../components/FavButton";
+import Adcionar from "./AddButton";
+
+const ContainerDeus= styled.div`
+width: 80vw;
+display: flex;
+
+@media screen  and (max-width: 1000px) {
+width: 90%;
+}
+`
 
 const ContainerGeral= styled.div`
-width: 100vw;
-height: 400px;
+width: 100%;
+height: 350px;
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
-padding-top:20px;
+padding-top: 20px;
 flex-direction: column;
 align-items: center;
-margin-top: 20px;
+margin-top: 60px;
+
 @media only screen and (max-width: 1000px) {
     width: 100vw;
 }
@@ -24,10 +35,9 @@ margin-top: 20px;
 }
 `
 const Container= styled.div`
-width: 60%;
+width: 90%;
 height: 100%;
 display: flex;
-justify-content: center;
 overflow:auto; 
 border-top: 1px solid #e2e2e2;
 position: relative;
@@ -43,7 +53,7 @@ position: relative;
 }
 
 @media only screen and (max-width: 1000px) {
-    width: 100vw;
+    width: 90vw
 }
 `
 
@@ -53,12 +63,13 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-padding-bottom: 15px;
+padding-bottom: 10px;
+width: 250px;
 `
 
 const Produto = styled.div`
-width: 200px;
-height: 200px;
+width: 150px;
+height: 150px;
 display: flex;
 flex-direction: column;
 margin-top: 30px;
@@ -109,29 +120,6 @@ position: relative;
 width: 120px;
 height: 20px;
 `
-const Adcionar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-position: absolute;
-margin-right: 50px;
-
-&:hover{
-    animation: animacao 0.5s ease both;
-    @keyframes animacao {
-        from{
-            width:20px;
-            height: 20px;
-        }
-        to{
-            width: 23px;
-            height: 23px;
-            transform: translateY(-5px);
-        }
-    }
-}
-`
 
 const Div = styled.div`
 width: 100px;
@@ -152,39 +140,34 @@ padding-right: 10px;
 color: #141414e1;
 `
 
-const Outlet = ({data}) => {
-    
-    const {sacola, setSacola} = useContext(CarrinhoContext)
-
-    const add = (indice) =>{
-         setSacola([...sacola, indice])
-         console.log(sacola)
-    }
+const Outlet = ({data, func, qualItem}) => {
 
     return (
-        <ContainerGeral>
-            <Div>
-                <Titulo>OUTLET</Titulo> 
-            </Div>  
-            <Container>                     
-                {data.map((indice)=>{
-                    return(          
-                        <ContainerProduto key={indice.id}>
-                            <Produto>
-                                <Offer>-30%</Offer>
-                                <ImagemProduto src={indice.url}/>
-                            </Produto>
-                            <Colecao>{indice.colecao}</Colecao>
-                            <PreçoBruto>{indice.bruto.toFixed(2)} R$</PreçoBruto>
-                            <PreçoFinal>{indice.preço.toFixed(2)} R$</PreçoFinal>
-                            <ContainerBotoes>
-                                <Adcionar onClick={() => {add(indice)}} src="./img/add.png"/>
-                                <Favoritar indice={indice}/>
-                            </ContainerBotoes>
-                        </ContainerProduto>
-                        )})}
-            </Container> 
-        </ContainerGeral>  
+        <ContainerDeus>
+            <ContainerGeral>
+                <Div>
+                    <Titulo>OUTLET</Titulo> 
+                </Div>  
+                <Container>                     
+                    {data.map((item)=>{
+                        return(          
+                            <ContainerProduto key={item.id}>
+                                <Produto>
+                                    <Offer>-30%</Offer>
+                                    <ImagemProduto src={item.url}/>
+                                </Produto>
+                                <Colecao>{item.colecao}</Colecao>
+                                <PreçoBruto>{item.bruto.toFixed(2)} R$</PreçoBruto>
+                                <PreçoFinal>{item.preço.toFixed(2)} R$</PreçoFinal>
+                                <ContainerBotoes>
+                                    <Adcionar func={func} item={item}/>
+                                    <Favoritar item={item}/>
+                                </ContainerBotoes>
+                            </ContainerProduto>
+                            )})}
+                </Container> 
+            </ContainerGeral>  
+        </ContainerDeus>
     );
 }
  

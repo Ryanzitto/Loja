@@ -18,11 +18,16 @@ display: flex;
 justify-content: space-evenly;
 align-items: center;
 margin-left: 15px;
-margin-top: 10px;
+margin-top: 20px;
+
+@media only screen and (max-width: 800px) and (min-width: 600px){
+    justify-content: center;
+    gap: 60px;
+}
 `
 const Item = styled.div`
-width: 365px;
-height: 200px;
+width: 330px;
+height: 180px;
 background-image: url("");
 background-size: 400px;
 position: relative;
@@ -40,15 +45,25 @@ border-radius: 10px;
         scale: 1.05;
     }
 }
-
-@media only screen and (max-width: 1250px) {
-    width: 280px;
+@media only screen and (max-width: 800px) and (min-width: 0px){
+    width: 150px;
     height: 150px;
+    border-radius: 50%;
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1300px) {
+    width: 250px;
+    height: 170px;
 }
 
 @media only screen and (min-width: 1550px) {
     height: 250px;
     width: 400px;
+    background-size: cover;
+}
+@media only screen and (min-width: 1800px) {
+    height: 250px;
+    width: 450px;
     background-size: cover;
 }
 `
@@ -58,6 +73,10 @@ position: absolute;
 color: #ffffff;
 margin-left: 25px;
 margin-top: 20px;
+
+@media only screen and (max-width: 800px) and (min-width: 400px){
+margin-top: 60px;
+}
 `
 
 const Tags = () => {
@@ -70,7 +89,7 @@ const Tags = () => {
                     </Item> 
                 </Link>
                 <Link to="/Bermudas">
-                    <Item style={{backgroundImage: 'url("https://wantedind.com/wp-content/uploads/2023/01/BANNER-1-1-800x800.png")', backgroundPositionY: '300p'}}>
+                    <Item style={{backgroundImage: 'url("https://wantedind.com/wp-content/uploads/2023/01/BANNER-1-1-800x800.png")', backgroundPositionY: '300px'}}>
                         <Titulo>BERMUDAS</Titulo>
                     </Item> 
                 </Link>        

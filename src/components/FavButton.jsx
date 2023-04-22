@@ -26,30 +26,29 @@ margin-left: 50px;
 }
 `
 
-const Favoritar = ({indice}) => {
+const Favoritar = ({item}) => {
 
     const {favorito, setFavorito} = useContext(FavoritosContext)
 
-    const [isClicked, setIsClicked] = useState(indice.fav)
+    const [isClicked, setIsClicked] = useState(item.fav)
 
     const addToFavorite = () => {
         
         if(isClicked == false){
-            indice.fav = true;
-            setFavorito([...favorito, indice])
-            setIsClicked(indice.fav)
-            console.log(indice)
+            item.fav = true;
+            setFavorito([...favorito, item])
+            setIsClicked(item.fav)
         }
         else if(isClicked == true){
-            indice.fav = false;
-            setIsClicked(indice.fav)
-            setFavorito(favorito.filter((item) => JSON.stringify(item) !== JSON.stringify(indice)) , indice.fav = false)
+            item.fav = false;
+            setIsClicked(item.fav)
+            setFavorito(favorito.filter((indice) => JSON.stringify(indice) !== JSON.stringify(item)))
         }
     } 
 
     return (
         <>
-        <FavoritarIcon onClick={addToFavorite} src={indice.fav == true ? "./img/heart-full.png" : "./img/heart-empty.png"}/>
+        <FavoritarIcon onClick={addToFavorite} src={item.fav == true ? "./img/heart-full.png" : "./img/heart-empty.png"}/>
         </>
     );
 }

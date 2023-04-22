@@ -12,6 +12,6 @@ export const CarrinhoProvider = ({children}) => {
         setCarrinhoEstado( carrinhoEstado === "fechado" ? "aberto" : "fechado");
     }
     return(
-        <CarrinhoContext.Provider value={{carrinhoEstado, toggleCarrinhoEstado, sacola, setSacola}}>{children}</CarrinhoContext.Provider>
+        <CarrinhoContext.Provider value={{ carrinhoEstado, toggleCarrinhoEstado, sacola, setSacola}}>{children}</CarrinhoContext.Provider>
     )
 }

@@ -8,26 +8,118 @@ import MaisVendidos from "../components/MaisVendidos"
 import BannerOutLet from "../components/BannerOutLet";
 import Outlet from "../components/Outlet";
 
-const outLet = [
+import { useState } from "react";
+
+const maisVendidos = [
   {
-      tipo: "camiseta",
-      nome: "Camiseta Wanted",
-      tamanho: "GG",
-      cor: "Preto",
-      url:  "https://wantedind.com/wp-content/uploads/2020/08/logo-pixo-laranja-900x900.jpg",
-      descricao: "Camiseta básica preta",
-      preço: 99.90,
-      bruto: 30.23,
-      colecao: "Premium",
-      id: 0,
-      fav: false,
+  id: 16,
+  url:  "https://dillysports.vteximg.com.br/arquivos/ids/175503-1000-1000/350015_23-1.jpg?v=638049830862630000",
+  urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/160589-1000-1000/350015_23-2.jpg?v=637874537716200000",
+  descricao: "Sneacker Sike, coleção 'Sneackers00', confortável e estiloso, pra quem não pode parar de correr, com tecnologia de palmilha expansiva que preserva a saúde dos seus joelhos",
+  preço: 139.90,
+  colecao: "Sneackers00",
+  fav: false,
+},
+{
+  id: 17,
+  url:  "https://dillysports.vteximg.com.br/arquivos/ids/170784-1000-1000/THUMB_350015_26_1000x800.jpg?v=637987841174800000",
+  urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/170676-1000-1000/350015_26-2.jpg?v=637987829955570000",
+  descricao: "Sneacker Sike, coleção 'Sneackers00', confortável e estiloso, pra quem não pode parar de correr, com tecnologia de palmilha expansiva que preserva a saúde dos seus joelhos",
+  preço: 139.90,
+  colecao: "Sneackers00",
+
+  fav: false,
+},
+{
+  id: 18,
+  url:  "https://dillysports.vteximg.com.br/arquivos/ids/171998-1000-1000/THUMB_0002_350001_69_1.jpg?v=637994607636170000",
+  urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/171921-1000-1000/350001_69-2.jpg?v=637994549779630000",
+  descricao: "Sneacker Sike, coleção 'Sneackers00', confortável e estiloso, pra quem não pode parar de correr, com tecnologia de palmilha expansiva que preserva a saúde dos seus joelhos",
+  preço: 139.90,
+  colecao: "Sneackers00",
+  fav: false,
+},
+]
+
+const mais_vendidos_variacoes = [
+  {
+    id: 16,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "P",
+    cor: "Preto"
   },
+  {
+    id: 17,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "M",
+    cor: "Preto"
+  },
+  {
+    id: 18,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "G",
+    cor: "Preto"
+  },
+  {
+    id: 19,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "P",
+    cor: "Branco"
+  },
+  {
+    id: 20,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "M",
+    cor: "Branco"
+  },
+  {
+    id: 21,
+    url:  "",
+    preço: 99.90,
+    colecao: "Sneackers00",
+    fav: false,
+    tipo: "Tenis",
+    nome: "Tenis Ous",
+    tamanho: "G",
+    cor: "Branco"
+  },
+
+]
+
+
+const outLet = [
   {
       tipo: "Camiseta",
       nome: "Camisa Wanted",
       tamanho: "GG",
       cor: "Branco",
       url:  "https://wantedind.com/wp-content/uploads/2022/09/camiseta-wanted-grillz-preto-900x900.jpg",
+      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
       preço: 97.90,
       bruto: 139.90,
       colecao: "Premium",
@@ -40,7 +132,7 @@ const outLet = [
       tamanho: "GG",
       cor: "Preto",
       url:  "https://wantedind.com/wp-content/uploads/2020/08/logo-pixo-laranja-900x900.jpg",
-      descricao: "Camiseta básica preta",
+      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
       preço: 66.50,
       bruto: 94.90,
       colecao: "Premium",
@@ -51,7 +143,7 @@ const outLet = [
       tipo: "Camiseta",
       nome: "Camiseta Wanted",
       url:  "https://wantedind.com/wp-content/uploads/2022/03/camiseta-wanted-bomb14-preto-900x900.jpg",
-      descricao: "Boné five panel",
+      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
       preço: 51.90,
       bruto: 74.90,
       colecao: "Basics",
@@ -66,101 +158,25 @@ const outLet = [
       tamanho: "GG",
       cor: "Preto",
       url:  "https://wantedind.com/wp-content/uploads/2021/05/still-camiseta-premium-offwhite1-900x900.jpg",
-      descricao: "Camiseta básica preta",
+      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
       preço: 62.90,
       bruto: 89.90,
       colecao: "Basics",
       id: 4,
       fav: false,
   },
-]
-
-const maisVendidos = [
   {
-  tipo: "boné",
-  nome: "Boné Wanted",
-  tamanho: "P",
-  cor: "Preto",
-  url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",
-  descricao: "Boné five panel",
-  preço: 74.90,
-  colecao: "Cap00",
-  id: 0,
-  fav: false,
-},
-{
-  tipo: "camiseta",
-  nome: "Camiseta Wanted",
-  tamanho: "GG",
-  cor: "Preto",
-  url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-  urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-  descricao: "Camiseta básica preta",
-  preço: 99.90,
-  colecao: "Premium",
-  id: 1,
-  fav: false,
-},
-{
-  tipo: "boné",
-  nome: "Boné Wanted",
-  cor: "Preto",
-  tamanho: "P",
-  url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-PRETO-ALTERADO-900x900.png",
-  descricao: "Boné five panel",
-  preço: 74.90,
-  colecao: "Cap00",
-  id: 2,
-  fav: false,
-},
-{
-  tipo: "Tênis",
-  nome: "Ous",
-  tamanho: "40",
-  cor: "Preto/Rosa",
-  url:  "https://dillysports.vteximg.com.br/arquivos/ids/172372-1000-1000/THUMB_350001_44_IMIGRANTE-PRT-REFLETIVO-CHICLE-ESSENCIAL.jpg?v=638004051639500000",
-  urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/171722-1000-1000/350001_44-3.jpg?v=637992972757330000",
-  descricao: "Tenis bonito pro pé",
-  preço: 139.90,
-  colecao: "Emigrante",
-  id: 3,
-  fav: false,
-},
-{
-  tipo: "camiseta",
-  nome: "Camiseta Wanted",
-  tamanho: "GG",
-  cor: "Preto",
-  url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-  urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-  descricao: "Camiseta básica preta",
-  preço: 99.90,
-  colecao: "Premium",
-  id: 4,
-  fav: false,
-},
-{
-  tipo: "Tênis",
-  nome: "Ous",
-  tamanho: "40",
-  cor: "Branco",
-  url:  "https://dillysports.vteximg.com.br/arquivos/ids/178494-1000-1000/imigrante_branco_2_oe_thumb.jpg?v=638128463015830000",
-  urlSubImage: "https://dillysports.vteximg.com.br/arquivos/ids/176100-1000-1000/350001_64-2.jpg?v=638070503036230000",
-  descricao: "Tenis bonito pro pé",
-  preço: 139.90,
-  colecao: "Emigrante",
-  id: 5,
-  fav: false,
-},
-{
-  tipo: "boné",
-  nome: "Boné Wanted",
-  url:  "https://wantedind.com/wp-content/uploads/2022/12/BONE-PRETO-ALTERADO-1-900x900.png",
-  descricao: "Boné five panel",
-  preço: 74.90,
-  colecao: "Cap00",
-  id: 6,
-  fav: false,
+    tipo: "boné",
+    nome: "Boné Wanted",
+    url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-AZUL-ALTERADO-900x900.png",
+    descricao: "Boné Sike, cofortável e estiloso, a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
+    preço: 74.90,
+    bruto: 52.43,
+    colecao: "Cap00",
+    cor: "Azul",
+    tamanho: "P",
+    id: "30",
+    fav: false,
 },
 ]
 
@@ -204,7 +220,7 @@ position: relative;
 `
 const Body = styled.div`
 width: 80vw;
-height: 2300px;
+height: 1970px;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -213,7 +229,7 @@ align-items: center;
   width: 100vw;
 }
 @media only screen and (min-width: 1550px) {
-  height: 3050px;
+  height: 2790px;
 }
 `
 const FooterContainer = styled.div`
@@ -221,7 +237,7 @@ width: 100%;
 `
 
 const Home = () => {
-  
+
  return (
     <ContainerGeral>
       <Nav>
@@ -230,9 +246,8 @@ const Home = () => {
         <Body>
             <Carousel images={imagensCarrosel}/>
         <Tags/>
-        <MaisVendidos data={maisVendidos}/>
+        <MaisVendidos variacoes={mais_vendidos_variacoes} data={maisVendidos}/>
         <BannerOutLet/>     
-        <Outlet data={outLet}/>
         <FooterContainer>
             <Footer/>
         </FooterContainer>               

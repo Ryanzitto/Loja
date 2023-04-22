@@ -28,8 +28,16 @@ margin-left: 950px;
   opacity: 0.9
 }
 
-@media only screen and (min-width: 1550px) {
-  margin-left: 1150px;
+@media only screen and (max-width: 1250px) {
+  margin-left: 800px;
+}
+
+@media only screen and (max-width: 1050px) {
+  margin-left: 600px;
+}
+@media only screen and (max-width: 800px) {
+  margin-top: 300px;
+  margin-left: 100px;
 }
 `
 const ButtonProximo = styled.img`
@@ -42,9 +50,16 @@ margin-right: 950px;
 &:hover{
   opacity: 0.9
 }
+@media only screen and (max-width: 1250px) {
+  margin-right: 800px;
+}
 
-@media only screen and (min-width: 1550px) {
-  margin-right: 1150px;
+@media only screen and (max-width: 1050px) {
+  margin-right: 600px;
+}
+@media only screen and (max-width: 800px) {
+  margin-top: 300px;
+  margin-right: 100px;
 }
 `
 const Image = styled.img`
@@ -58,6 +73,10 @@ filter: grayscale(0.5);
 @media only screen and (min-width: 1550px) {
   height: 550px;
   width: 1550px;
+}
+@media only screen and (min-width: 1850px) {
+  height: 550px;
+  width: 1750px;
 }
 `
 const Carousel = ({ images }) => {

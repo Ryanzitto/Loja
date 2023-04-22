@@ -1,20 +1,34 @@
 import React from "react";
 import styled from 'styled-components'
-import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { useContext, useState } from 'react'
 import { CarrinhoContext } from '../context/CarrinhoContext'; 
+import Especificacoes from "./Especificacoes";
 
 import Favoritar from "../components/FavButton";
+import Adcionar from "./AddButton";
+
+const ContainerDeus= styled.div`
+width: 80vw;
+display: flex;
+position: relative;
+
+@media screen  and (max-width: 1000px) {
+width: 90%;
+}
+`
 
 const ContainerGeral= styled.div`
-width: 100vw;
-height: 400px;
+width: 100%;
+height: 350px;
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
 padding-top:20px;
 flex-direction: column;
 align-items: center;
-margin-top: 20px;
+margin-top: 40px;
+padding-bottom: 40px;
 @media only screen and (max-width: 1000px) {
     width: 100vw
 }
@@ -25,25 +39,30 @@ margin-top: 20px;
 }
 `
 const Container= styled.div`
-width: 60%;
+width: 90%;
 height: 100%;
 display: flex;
-justify-content: center;
 overflow:auto; 
 border-top: 1px solid #e2e2e2;
 position: relative;
+justify-content: center;
+margin-right: 40px;
+z-index: 0;
 
 ::-webkit-scrollbar {
-  width: 3px;
   height: 5px;
   background-color: #aaa; 
 }
 ::-webkit-scrollbar-thumb {
+   size: 3px;
   background: #000;
-  border-radius: 3px;;
+  border-radius: 3px;
+
 }
+
 @media only screen and (max-width: 1000px) {
-    width: 100vw
+    width: 90vw;
+    justify-content: flex-start;
 }
 `
 
@@ -54,11 +73,12 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 padding-bottom: 10px;
+width: 250px;
 `
 
 const Produto = styled.div`
-width: 200px;
-height: 200px;
+width: 150px;
+height: 150px;
 display: flex;
 flex-direction: column;
 margin-top: 30px;
@@ -74,19 +94,6 @@ background-color: white;
 position: relative;
 `
 
-const SegundaImagem = styled.img`
-width: 200px;
-height :200px;
-position: absolute;
-z-index: -1;
-background-color: white;
-
-@media only screen and (max-width: 1000px) {
-    width: 150px;
-    height: 150px;
-    margin-top: 0;
-}
-`
 const Colecao = styled.p`
 font-size: 12px;
 text-align: center;
@@ -100,32 +107,8 @@ text-align: center;
 const ContainerBotoes = styled.div`
 display:flex;
 justify-content: center;
-position: relative;
 width: 120px;
-height: 20px;
-`
-const Adcionar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-position: absolute;
-margin-right: 50px;
-
-&:hover{
-    animation: animacao 0.5s ease both;
-    @keyframes animacao {
-        from{
-            width:20px;
-            height: 20px;
-        }
-        to{
-            width: 23px;
-            height: 23px;
-            transform: translateY(-5px);
-        }
-    }
-}
+height: 30px;
 `
 
 const Div = styled.div`
@@ -141,43 +124,58 @@ const Titulo = styled.h1`
     font-size: 20px;
     background-color: white;
     position: absolute;
-    z-index: 1;
-    margin-top: -45px;
+    margin-top: -48px;
     padding-left: 10px;
     padding-right: 10px;
     color: #141414e1;
+    z-index: 1;
 `
+const Ver = styled.button`
+width: 80px;
+height: 30px;
+border: none;
+border-radius: 5px;
+background-color: #ffffffec;
+font-size: 14px;
+cursor: pointer;
+font-weight: 500;
+text-decoration: underline;
+`
+const linkStyle = {
+    width: '80px'
+}
 
-const MaisVendidos = ({data}) => {
+const MaisVendidos = ({data, variacoes, state, setState}) => {
+
+    const [isClicked, setIsClicked] = useState(false)
+
+    const [qualItem, setQualItem] = useState()
     
-    const {sacola, setSacola} = useContext(CarrinhoContext)
-
-    const add = (indice) =>{
-         setSacola([...sacola, indice])
-    }
     return (
-        <ContainerGeral>
-            <Div>
-                <Titulo>MAIS VENDIDOS</Titulo> 
-            </Div>  
-                <Container>                     
-                    {data.map((indice)=>{
-                        return(          
-                        <ContainerProduto  key={indice.id}>
-                            <Produto>
-                                <ImagemProduto src={indice.url}/>
-                                <SegundaImagem src={indice.urlSubImage}/>
-                            </Produto>
-                            <Colecao>{indice.colecao}</Colecao>
-                            <PreçoProduto>{indice.preço.toFixed(2)} R$</PreçoProduto>
-                            <ContainerBotoes>
-                                <Adcionar onClick={() => {add(indice)}} src="./img/add.png"/>
-                                <Favoritar indice={indice}/>
-                            </ContainerBotoes>
-                        </ContainerProduto>
-                        )})}
-                </Container> 
-        </ContainerGeral>  
+        <ContainerDeus>
+            <ContainerGeral>
+                <Div>
+                    <Titulo>MAIS VENDIDOS</Titulo> 
+                </Div>  
+                    <Container>      
+                        {data.map((item)=>{
+                            return(          
+                            <ContainerProduto  key={item.id}>
+                                <Produto>
+                                    <ImagemProduto src={item.url}/>
+                                </Produto>
+                                <Colecao>{item.colecao}</Colecao>
+                                <PreçoProduto>{item.preço.toFixed(2)} R$</PreçoProduto>
+                                <ContainerBotoes>
+                                    <Link style={linkStyle} to="/FootWear">
+                                        <Ver>Ver item</Ver>
+                                    </Link>                              
+                                </ContainerBotoes>
+                            </ContainerProduto>
+                            )})}
+                    </Container> 
+            </ContainerGeral>  
+        </ContainerDeus>
     );
 }
  
