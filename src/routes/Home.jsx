@@ -6,9 +6,11 @@ import Tags from "../components/Tags";
 import Footer from "../components/Footer";
 import MaisVendidos from "../components/MaisVendidos"
 import BannerOutLet from "../components/BannerOutLet";
-import Outlet from "../components/Outlet";
+import Checkout from "./CheckoutRoute";
 
 import { useState } from "react";
+import { CarrinhoContext } from "../context/CarrinhoContext";
+import { useContext } from "react";
 
 const maisVendidos = [
   {
@@ -220,7 +222,7 @@ position: relative;
 `
 const Body = styled.div`
 width: 80vw;
-height: 1970px;
+height: fit-content;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -229,7 +231,7 @@ align-items: center;
   width: 100vw;
 }
 @media only screen and (min-width: 1550px) {
-  height: 2790px;
+  height: 2100px;
 }
 `
 const FooterContainer = styled.div`
@@ -238,19 +240,22 @@ width: 100%;
 
 const Home = () => {
 
+  const {checkoutEstado} = useContext(CarrinhoContext)
+
+
  return (
     <ContainerGeral>
       <Nav>
           <Sidebar/>
       </Nav>
         <Body>
-            <Carousel images={imagensCarrosel}/>
+        <Carousel images={imagensCarrosel}/>
         <Tags/>
         <MaisVendidos variacoes={mais_vendidos_variacoes} data={maisVendidos}/>
         <BannerOutLet/>     
         <FooterContainer>
             <Footer/>
-        </FooterContainer>               
+        </FooterContainer>                
         </Body>
     </ContainerGeral>          
     );

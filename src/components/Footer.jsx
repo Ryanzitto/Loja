@@ -7,11 +7,14 @@ height: 300px;
 width: 100%;
 display: flex;
 align-items: center;
-margin-top: 20px;
+margin-top: 100px;
 align-self: flex-end;
 
 @media screen and ( max-width: 500px) {
   flex-direction: column;
+}
+@media screen and ( min-width: 1500px) {
+margin-top: 150px;
 }
 `
 
@@ -103,6 +106,9 @@ font-size: 14px;
 @media only screen and (max-width: 600px) {
    font-size: 10px;
 }
+@media only screen and (min-width: 1600px) {
+   font-size: 20px;
+}
 `
 const Line1 = styled.div`
 height: 50%;
@@ -138,6 +144,9 @@ font-size: 10px;
 }
 @media only screen and (max-width: 600px) {
    font-size: 10px;
+}
+@media only screen and (min-width: 1600px) {
+   font-size: 16px;
 }
 `
 

@@ -4,8 +4,6 @@ import styled from 'styled-components'
 
 const Container = styled.div`
 width: 100%;
-overflow-x: hidden;
-overflow-y: hidden;
 display: flex;
 justify-content: center;
 flex-direction: column;
@@ -39,6 +37,9 @@ margin-left: 950px;
   margin-top: 300px;
   margin-left: 100px;
 }
+@media only screen and (min-width: 1750px) {
+  margin-left: 1300px;
+}
 `
 const ButtonProximo = styled.img`
 position: absolute;
@@ -60,6 +61,9 @@ margin-right: 950px;
 @media only screen and (max-width: 800px) {
   margin-top: 300px;
   margin-right: 100px;
+}
+@media only screen and (min-width: 1750px) {
+  margin-right: 1300px;
 }
 `
 const Image = styled.img`

@@ -35,7 +35,6 @@ padding-bottom: 40px;
   @media only screen and (min-width: 1550px) {
     width: 100%;
     height: 400px;
-    margin-top: 0;
 }
 `
 const Container= styled.div`
@@ -63,6 +62,9 @@ z-index: 0;
 @media only screen and (max-width: 1000px) {
     width: 90vw;
     justify-content: flex-start;
+}
+@media only screen and (min-width: 1500px) {
+    gap: 50px;
 }
 `
 

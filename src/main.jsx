@@ -10,10 +10,12 @@ import Camisas from './routes/Camisas'
 import FootWear from './routes/FootWear'
 import HeadWear from './routes/HeadWear'
 import Bermudas from './routes/Bermudas'
+import Checkout from './routes/CheckoutRoute'
 
 import { CarrinhoProvider } from './context/CarrinhoContext'
 import { FavoritoProvider } from './context/FavoritosContext'
 import Favoritos from './components/Favoritos'
+
 
 
 
@@ -231,7 +233,7 @@ const bermudas_variacoes = [
   {
     id: 10,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -242,7 +244,7 @@ const bermudas_variacoes = [
   {
     id: 11,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -253,7 +255,7 @@ const bermudas_variacoes = [
   {
     id: 12,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -264,7 +266,7 @@ const bermudas_variacoes = [
   {
     id: 13,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -275,7 +277,7 @@ const bermudas_variacoes = [
   {
     id: 14,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -286,7 +288,7 @@ const bermudas_variacoes = [
   {
     id: 15,
     url:  "",
-    preço: 99.90,
+    preço: 109.90,
     colecao: "Berm00",
     fav: false,
     tipo: "Bermuda",
@@ -554,6 +556,7 @@ const router = createBrowserRouter([
       {path: "HeadWear", element: <HeadWear data={caps} variacoes={caps_variacoes}/>},
       {path: "Bermudas", element: <Bermudas data={bermudas} variacoes={bermudas_variacoes}/>},
       {path: "Favorites", element: <Favoritos/>},
+      {path: "Checkout", element: <Checkout/>},
     ]
   }
 ])

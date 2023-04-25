@@ -52,6 +52,9 @@ text-align: center;
     width: 50%;
     display: none;
 }
+@media only screen and (min-width: 1600px) {
+height: 200px;
+}
 `
 
 const ListNav = styled.div`
@@ -90,6 +93,11 @@ cursor: pointer;
 @media only screen and (max-width: 1000px) {
     display: none;
 }
+@media only screen and (min-width: 1600px) {
+width: 150px;
+height: 120px;
+margin-top: 10px;
+}
 `
 const Section = styled.div`
 width: 200px;
@@ -125,10 +133,15 @@ border-radius: 5px;
 `
 const Texto = styled.p`
 font-family: "Roboto", sans-serif;
-margin-left: 20px;
+margin-left: 30px;
+font-weight: 500;
 
 @media only screen and (max-width: 1000px) {
     display: none;
+}
+@media only screen and (min-width: 1600px) {
+font-size: 22px;
+
 }
 `
 const CarrinhoContainer = styled.div`

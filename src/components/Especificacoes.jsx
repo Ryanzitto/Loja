@@ -16,18 +16,12 @@ overflow-y: hidden;
 position: absolute;
 flex-direction: column;
 z-index: 2;
-
-@media screen and (min-width: 1001px) and (max-width: 1250px) {
-    margin-left: 110px;
-}
-@media screen and (max-width: 1000px) {
-    margin-left: 0px;
-}
 `
 
 const Main = styled.div`
 background-color: #ffffff;
 width: 75%;
+max-width: 1200px;
 height: 600px;
 border-radius: 15px;
 display: flex;
@@ -119,7 +113,7 @@ font-size: 1.2em;
 
 @media screen and (max-width: 1300px) {
 margin-top: 20px;
-width: 350px;
+width: 200px;
 font-size: 1.0em;
 }   
 
@@ -151,6 +145,7 @@ height: 100%;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
+align-items: center;
 margin-top: 50px;
 
 @media screen and (max-width: 1300px) {
@@ -161,7 +156,6 @@ const TituloContainer = styled.div`
 display: flex;
 justify-content: flex-start;
 align-items: center;
-margin-left: 50px;
 
 @media screen and (max-width: 1300px) {
     margin-left: 0;
@@ -191,34 +185,33 @@ letter-spacing: 1px;
 `
 const Section = styled.div`
 width: 100%;
-height: 16%;
+height: 20%;
 display: flex;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 flex-direction: row;
 gap: 10px;
-margin-left: 50px;
-margin-bottom: 20px;
 
 @media screen and (max-width: 1300px) {
     justify-content: center;
     margin-left: 0;
     height: 22%;
-    margin-bottom: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 `
 const CorContainer = styled.div`
-width: 50px;
-height: 50px;
+width: 80px;
+height: 80px;
 display: flex;
 justify-content: center;
 align-items: center;
 border-radius: 10px;
 `
 const CorPreto = styled.div`
-width: 30px;
-height: 30px;
+width: 50px;
+height: 50px;
 background-color: #000000;
 border-radius: 10px;
 cursor: pointer;
@@ -229,8 +222,8 @@ cursor: pointer;
 }
 `
 const CorBranco = styled.div`
-width: 30px;
-height: 30px;
+width: 50px;
+height: 50px;
 background-color: #ffffff;
 border: 1px solid grey;
 border-radius: 10px;
@@ -241,8 +234,8 @@ cursor: pointer;
 }
 `
 const TamanhoContainer = styled.div`
-width: 60px;
-height: 60px;
+width: 70px;
+height: 70px;
 background-color: #ffffff;
 display: flex;
 justify-content: center;
@@ -251,9 +244,9 @@ border-radius: 10px;
 `
 const ConfirmaContainer = styled.div`
 width: 50%;
-height: 50px;
+height: 60px;
 display: flex;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 border-radius: 10px;
 `
@@ -269,13 +262,9 @@ color: White;
 font-size: 22px;
 font-weight: 800;
 cursor: pointer;
-
-@media screen and (max-width: 900px) {
-    height: 70%;
-}
 `
 const Confirma = styled.button`
-width: 80%;
+width: 100%;
 height: 100%;
 background: #161616f9;
 color: white;
@@ -289,23 +278,25 @@ font-size: 18px;
     animation: anime ease 3s both;
     @keyframes anime {
         to{
-            background-color: #ff8b9e;
+            background-color: #ff002b;
         }       
     }
 }
 `
 
 const clickStyle = {
-    fontSize: '32px',
+    fontSize: '34px',
 };
 
 const clickCor = {
     border: "3px solid black",
 };
 
-const Especificacoes = ({item, state, setState, variacoes}) => {
+const margin = {
+    marginTop: "60px",
+};
 
-    console.log(item)
+const Especificacoes = ({item, state, setState, variacoes}) => {
 
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
@@ -439,7 +430,7 @@ const Especificacoes = ({item, state, setState, variacoes}) => {
                                         </CorContainer>
                                     </Section>
                                 </> : null}
-                                <TituloContainer>
+                                <TituloContainer style={indice.tipo === 'tenis' ? margin  : null }>
                                     <Titulo2>Tamanho: {tamanho}</Titulo2>
                                 </TituloContainer>
 

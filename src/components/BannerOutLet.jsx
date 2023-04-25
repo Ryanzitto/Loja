@@ -7,7 +7,6 @@ display: flex;
 justify-content: flex-end;
 
 @media only screen and (min-width: 1550px) {
-    height: 600px;
 }
 `
 const ContainerBanner = styled.div`
@@ -37,7 +36,7 @@ filter: grayscale(1);
    width: 1220px;
 }
 @media only screen and (min-width: 1550px) {
-    width: 1600px;
+    width: 1500px;
     height: 600px;
 }
 `

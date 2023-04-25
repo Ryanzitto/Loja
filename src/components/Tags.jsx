@@ -77,6 +77,9 @@ margin-top: 20px;
 @media only screen and (max-width: 800px) and (min-width: 400px){
 margin-top: 60px;
 }
+@media only screen and (min-width: 1550px){
+font-size: 30px;
+}
 `
 
 const Tags = () => {

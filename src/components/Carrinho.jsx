@@ -1,4 +1,5 @@
 import React, { useState , useEffect, useContext} from "react";
+import { Link } from "react-router-dom";
 import { CarrinhoContext } from '../context/CarrinhoContext';
 import styled from 'styled-components'
 
@@ -233,6 +234,9 @@ const Carrinho = () => {
 
     const {toggleCarrinhoEstado} = useContext(CarrinhoContext)
 
+
+    const {toggleCheckoutEstado} = useContext(CarrinhoContext)
+
     const {sacola, setSacola} = useContext(CarrinhoContext)
     
 
@@ -262,23 +266,23 @@ const Carrinho = () => {
                             <ItemContainer key={indice.id}>
                                 <ImagemContainer>
                                     <ImagemProduto src={indice.url} />  
-                                </ImagemContainer>
-                              
+                                </ImagemContainer>                
                                 <Infos>
                                     <Nome>{indice.nome}</Nome>
                                     <Cor>{indice.cor}</Cor>
                                     <Tamanho>{`Size: ${indice.tamanho}`}</Tamanho>
-                                    <Preço>{`${indice.preço} R$`}</Preço>
+                                    <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
                                 </Infos>
                                 <IconeDescarte onClick={() => {setSacola(sacola.filter((item) => item !== indice))}} src="./img/trash.png"/>
-
                             </ItemContainer>
                     )})}
                 </Body>
                 {sacola.length > 0 ?            
                     <SubtotalContainer>
                         <Subtotal>{`R$ ${preco.toFixed(2)}`}</Subtotal>
-                        <Finalizar onClick={()=>{}}>Finalizar Compra</Finalizar>
+                        <Link to="/Checkout">
+                            <Finalizar onClick={() => {toggleCheckoutEstado()}}>Finalizar Compra</Finalizar>
+                        </Link>                    
                     </SubtotalContainer> : null}
                     {detalhesIsOpen ? <Especificacoes data={qualItem} func={openEspecificacoes}/> : null}
         </ContainerGeral>

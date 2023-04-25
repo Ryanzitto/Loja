@@ -8,10 +8,15 @@ export const CarrinhoProvider = ({children}) => {
 
     const [sacola, setSacola] = useState([])
 
+    const [checkoutEstado, setCheckoutEstado] = useState('fechado')
+
+    const toggleCheckoutEstado = () => {
+        setCheckoutEstado( checkoutEstado === "fechado" ? "aberto" : "fechado");
+    }
     const toggleCarrinhoEstado = () => {
         setCarrinhoEstado( carrinhoEstado === "fechado" ? "aberto" : "fechado");
     }
     return(
-        <CarrinhoContext.Provider value={{ carrinhoEstado, toggleCarrinhoEstado, sacola, setSacola}}>{children}</CarrinhoContext.Provider>
+        <CarrinhoContext.Provider value={{ checkoutEstado ,toggleCheckoutEstado ,carrinhoEstado, toggleCarrinhoEstado, sacola, setSacola}}>{children}</CarrinhoContext.Provider>
     )
 }

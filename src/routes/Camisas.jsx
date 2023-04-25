@@ -13,7 +13,6 @@ import { CarrinhoContext } from '../context/CarrinhoContext';
 
 
 const Containergeral = styled.div`
-display: flex;
 width:100vw;    
 height: 100vh;
 overflow-x: hidden;  
@@ -114,6 +113,8 @@ const Camisas = ({data, variacoes}) => {
 
     const [qualItem, setQualItem] = useState()
 
+    const {checkoutEstado} = useContext(CarrinhoContext)
+
     return (
         <Containergeral>
             <Nav>
@@ -137,7 +138,7 @@ const Camisas = ({data, variacoes}) => {
                         </ContainerProduto>
                         )})}
                 <Footer/>
-            </Container>    
+            </Container>  
         </Containergeral>
     );
 }

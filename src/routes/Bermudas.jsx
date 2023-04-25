@@ -41,7 +41,6 @@ height: 100%;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
-
 @media only screen and (max-width: 1000px) {
     width: 100vw
   }
