@@ -1,7 +1,7 @@
 import styled from "styled-components";
-
 import { useContext, useState, useEffect, useRef } from "react";
 import { CarrinhoContext } from '../context/CarrinhoContext';
+
 import Sidebar from "../components/Sidebar";
 
 const Gambiarra = styled.div`
@@ -61,15 +61,19 @@ height: 100%;
 display: flex;
 justify-content: center;
 `
-const Faturamento = styled.div`
+const DadosDeEntrega = styled.div`
 width: 33%;
 height: 100%;
 margin-top: 30px;
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 const FormContainer = styled.form`
 display: flex;
 flex-direction: column;
-align-items: center;
+align-items: flex-start;
+width: 60%;
 `
 const Body = styled.div`
 display: flex;
@@ -180,7 +184,8 @@ flex-direction: column;
 `
 const Label = styled.label`
 font-size: 14px;
-margin-top: 20px;
+margin-top: 10px;
+font-weight: 500;
 `
 const InputNumeroDoCartao = styled.input`
 width: 200px;
@@ -271,6 +276,7 @@ const ConfirmaFat = styled.button`
 width: 200px;
 height: 50px;
 margin-top: 10px;
+margin-left: 15px;
 border: none;
 background-color: #47f147;
 color: white;
@@ -293,7 +299,7 @@ text-align: center;
 const Mensagem = styled.p`
 font-size: 12px;
 text-align: center;
-width: 50%;
+width: 100%;
 `
 
 const MensagemCartao = styled.p`
@@ -324,127 +330,97 @@ const MensagemPosVenda = styled.h1`
 font-size: 20px;
 margin-left: 250px;
 `
+const Span = styled.span`
+font-size: 12px;
+margin-top: 4px;
+color: red;
+`
+const FormPagamento = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`
+
+import {useForm} from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver} from '@hookform/resolvers/zod'
+
+const createDataFormSchema = z.object({
+    email: z.string()
+    .nonempty('O e-mail é obrigatório')
+    .email('Formato de e-mail inválido.'),
+
+    name: z.string()
+    .min(10, "O nome deve ter no minimo 10 caracteres."),
+
+    cep: z.string()
+    .min(8, "O CEP deve conter exatamente 8 números."),
+
+    telefone: z.string()
+    .min(8, "O telefone deve conter 8 números."),
+})
+
+const createDataFormPagamentoSchema = z.object({
+    numero: z.string()
+    .nonempty('O número deve conter 16 dígitos')
+    .min(16, 'O número  deve conter 16 dígitos'),
+
+    nomeTitular: z.string()
+    .min(10, "O nome deve ter no mínimo 10 caracteres"),
+
+    vencimento: z.string()
+    .min(5, ("Informações estão erradas")),
+
+    cvv: z.string()
+    .min(3, "CVV precisar conter 3 dígitos"),
+})
+
 const Checkout = () => {
 
-    const [email, setEmail]= useState(null)
-    const [valid, setValid]= useState(null)
-    const [nome, setNome]= useState(null)
-    const [cep, setCep]= useState(0)
-    const [telefone, setTelefone]= useState(null)
     const [total, setTotal] = useState(0)
 
-    const [mensagem, setMensagem] = useState("")
-    const [mensagemCartao, setMensagemCartao] = useState("")
+    const [dadosDeEntrega, setDadosDeEntrega] = useState({})
 
-    const {sacola, setSacola} = useContext(CarrinhoContext)
+    const [dadosDePagamento, setDadosDePagamento] = useState({})
 
-    const [dadosDeEntrega, setDadosDeEntrega] = useState({}) 
-    const [dadosPagamento, setDadosPagamento] = useState({}) 
-
-    const [dataIsSaved, setDataIsSaved] = useState(false) 
-
-    const [numerocartao, setNumeroCartao] = useState(null)
-
-    const [nomeTitular, setNomeTitular] = useState(null)
-
-    const [vencimento, setVencimento] = useState(null)
-
-    const [codigoCVV, setCodigoCVV]= useState(null)
+    const [dadosDeEntregaExiste, setDadosDeEntregaExiste] = useState(false)
 
     const [compraConfirmada, setCompraConfirmada] = useState(false)
 
-
-
-
+    const {sacola, setSacola} = useContext(CarrinhoContext)
 
     useEffect(() => {
 		setTotal(sacola.reduce((total, obj) => total + obj.preço, 0))
 	}, [sacola])
+    
 
-        const validaEmail = (event) =>{
-        setEmail(event.target.value)
-        const emailValue = email
-        // Regex pattern para validar endereços de e-mail
-        const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        setValid(pattern.test(emailValue))
-      }
-
-    const confirmaDestino = () => {
-        if(nome === null || cep === null || telefone === null){
-            setMensagem('Preencha os campos para continuar!')
-            return
-        }
-        else if(valid === false){
-            setMensagem('O email inserido não é válido.')
-            return
-        }
-        else if( nome.length < 10){
-            setMensagem('Os dados inseridos no campo "NOME" são inválidos')
-            return
-        }
-        else if(cep.length < 8){
-            setMensagem('Os dados inseridos no campo "CEP" são inválidos')
-            return
-        }
-        else if(telefone.length < 8){
-            setMensagem('Os dados inseridos no campo "TELEFONE" são inválidos')
-            return
-        }
-        else if(valid && nome.length >= 10 && cep.length >= 8 && telefone.length >= 8 ){
-            setMensagem('Dados de entrega foram salvos!')
-            setDadosDeEntrega(dadosDeEntrega.email = email)
-            setDadosDeEntrega(dadosDeEntrega.nome = nome)
-            setDadosDeEntrega(dadosDeEntrega.cep = cep)
-            setDadosDeEntrega(dadosDeEntrega.telefone = telefone)
-            setDataIsSaved(true)
-        }         
-        return;
+    const { register, handleSubmit, formState: {errors}} = useForm({
+        resolver: zodResolver(createDataFormSchema),
+    })
+    const { register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}} = useForm({
+        resolver: zodResolver(createDataFormPagamentoSchema)
+    })
+    
+    const createDataEntrega = (data) => {
+    setDadosDeEntrega(data)
+    setDadosDeEntregaExiste(true)
     }
 
-    const resetaInfosEntrega = () => {
-        setDataIsSaved(!dataIsSaved)
-        setDadosDeEntrega({})
-        setValid(null)
-        setEmail(null)
-        setNome(null)
-        setCep(null)
-        setTelefone(null)
-        setMensagem('')
+    const createDataPagamento = (data) => {
+        setDadosDePagamento(data)
+        console.log(dadosDePagamento)
+        setCompraConfirmada(true)
+        setSacola([])
     }
 
-    const confirmaCompra = () => {
-    if(dataIsSaved){
-        if(nomeTitular === null || numerocartao === null || codigoCVV === null || vencimento === null){
-            setMensagemCartao('Preencha os campos primeiro!')
-        }
-        else if(numerocartao.length < 16 ){
-            setMensagemCartao('O número do cartão deve conter exatamente 16 digitos.')
-        }
-        else if(nomeTitular. length < 10){
-            setMensagemCartao('O nome deve estar exatamento como consta no cartão')
-        }
-        else if(vencimento. length != 5){
-            setMensagemCartao('a data de vencimento deve conter "mês" "/" "ano"')
-        }
-        else if(codigoCVV. length != 3){
-            setMensagemCartao('O CVV deve conter exatamente 3 caracteres')
-        }
-        else{ setMensagemCartao('Seus dados foram válidados com sucesso!')
-
-
-              setDadosPagamento(dadosPagamento.numerocartao = numerocartao)
-              setDadosPagamento(dadosPagamento.nomeTitular = nomeTitular)
-              setDadosPagamento(dadosPagamento.vencimento = vencimento)
-              setDadosPagamento(dadosPagamento.codigoCVV = codigoCVV)
-              setCompraConfirmada(true)
-              setSacola([])
-              console.log(dadosPagamento)
-        }
-    }else{
-        setMensagemCartao('Confirme os dados de entrega antes de prosseguir!')
-        }
+    const resetaDadosEntrega = () => {
+    setDadosDeEntrega({})
+    setDadosDeEntregaExiste(false)
     }
+
     return (
+        
         <Gambiarra>
         <Sidebar/>
         <ContainerGeral>           
@@ -452,41 +428,65 @@ const Checkout = () => {
                 <Logo src="./img/logo.jfif"/>
                 <HeaderTitulo>CHECKOUT</HeaderTitulo>
             </Header>
-        
-            {compraConfirmada === true ?     
-                <ContainerPosVenda>
-                    <MensagemPosVenda>Seu pedido foi recebido e logo nós realizaremos a entrega, obrigado por comprar conosco! :D</MensagemPosVenda>
-                </ContainerPosVenda> : 
-            <Container>
-            {dataIsSaved === false ?
-                <Faturamento>
+            <Container> 
+                {compraConfirmada === false ? 
+                <>
+                <DadosDeEntrega>
+                    {dadosDeEntregaExiste === true ?
+                    <DadosDeEntrega>
+                        <SectionHeader>
+                            <Titulo>DADOS PREENCHIDOS</Titulo>
+                        </SectionHeader>
+                            <Body>
+                                <Mensagem>Os dados de entrega foram preenchidos e salvos. se desejar alterar clique no botão abaixo</Mensagem>
+                                <Alterar onClick={resetaDadosEntrega}>Alterar</Alterar>
+                            </Body>
+                        </DadosDeEntrega>
+                    :
+                    <>
                     <SectionHeader>
-                        <Titulo>FATURAMENTO</Titulo>
+                        <Titulo>ENTREGA</Titulo>
                     </SectionHeader>
-                    <FormContainer>                     
-                        <Input type="email" onChange={validaEmail} placeholder="Endereço de e-mail"/>
-                        {valid === true ? <span style={{ color: 'green', fontSize: '10px' }}>email válido</span> : null}
-                        {valid === false ? <span style={{ color: 'red', fontSize: '10px' }}>email inválido</span> : null}
-                        <Input type="name" onChange={(event)=>{setNome(event.target.value), console.log(nome)}} placeholder="Nome completo"/>
-                        <Input onChange={(event)=>{setCep(event.target.value), console.log(cep)}} placeholder="CEP(endereço de entrega)"/>
-                        <Input onChange={(event)=>{setTelefone(event.target.value), console.log(telefone)}} placeholder="Telefone para contato"/>
+                    <FormContainer onSubmit={handleSubmit(createDataEntrega)}>  
+                        <Label>Email:</Label>                   
+                        <Input 
+                        type="email"
+                        placeholder="exemplo@email.com"
+                        {...register('email')}
+                        />
+                        {errors.email && <Span>{errors.email.message}</Span>}
+
+
+                        <Label>Nome:</Label>    
+                        <Input 
+                        type="text" 
+                        placeholder="Ex: Rodrigo Fernandes Silva"
+                        {...register('name')}
+                        />
+                        {errors.name && <Span>{errors.name.message}</Span>}
+
+                        <Label>CEP:</Label>    
+                        <Input 
+                        type="text" 
+                        placeholder="Ex: 35657344"
+                        {...register('cep')}
+                        />
+                        {errors.cep && <Span>{errors.cep.message}</Span>}
+
+                        <Label>Telefone:</Label>    
+                        <Input 
+                        type="text" 
+                        placeholder="Ex: 81053487"
+                        {...register('telefone')}
+                        />    
+                        {errors.telefone && <Span>{errors.telefone.message}</Span>}
+
+                        <FooterFat>
+                            <ConfirmaFat type="submit">Confirmar</ConfirmaFat>
+                        </FooterFat>
                     </FormContainer>
-                    <FooterFat>
-                        <Mensagem>{mensagem}</Mensagem>
-                        <ConfirmaFat onClick={confirmaDestino}>Confirmar</ConfirmaFat>
-                    </FooterFat>
-                </Faturamento>
-            : 
-            <Faturamento>
-                <SectionHeader>
-                    <Titulo>DADOS PREENCHIDOS</Titulo>
-                </SectionHeader>
-                <Body>
-                    <Mensagem>Os dados de entrega foram preenchidos e salvos. se desejar alterar clique no botão abaixo</Mensagem>
-                    <Alterar onClick={resetaInfosEntrega}>Alterar</Alterar>
-                </Body>
-            </Faturamento>
-            }    
+                    </>}
+                </DadosDeEntrega>
                 <Revisao>
                     <SectionHeader>
                         <Titulo>REVISÃO</Titulo>
@@ -514,42 +514,78 @@ const Checkout = () => {
                             </Mid>
                             <Descartar onClick={() => {setSacola(sacola.filter((indice) => indice !== item))}} src="./img/trash.png"/>
                         </ItemContainer>
-                    )})}
+                    )})}      
                     {sacola.length > 0 ? <Total>{total.toFixed(2)} R$</Total> : null}                    
                 </Revisao>
-                <Pagamento>
-                    <SectionHeader>
-                        <Titulo>PAGAMENTO</Titulo>
-                    </SectionHeader>
-                    <PagamentoContainer>
-                        <LabelContainer>
-                            <Label htmlFor="numero">Digite o número do seu cartão*</Label>
-                            <InputNumeroDoCartao onChange={(event) =>{setNumeroCartao(event.target.value)}} placeholder="0000 0000 0000 0000" name="numero"/>
-                        </LabelContainer>
-                        <LabelContainer>
-                            <Label htmlFor="nome">Digite o nome do titular do cartão*</Label>
-                            <InputNomeDoCartao onChange={(event) =>{setNomeTitular(event.target.value)}} placeholder="Ex: Che guevara" name="nome"/>
-                        </LabelContainer>
-                        <LabelContainerRow>
-                            <LabelContainerColumn>
-                                <Label htmlFor="vencimento">Vencimento*</Label>
-                                <Vencimento onChange={(event) =>{setVencimento(event.target.value)}} placeholder="mm/aa" name="vencimento"/>
-                            </LabelContainerColumn>
-                            <LabelContainerColumn>
-                                <Label htmlFor="CVV">CVV*</Label>
-                                <CVV onChange={(event) =>{setCodigoCVV(event.target.value)}} placeholder="123" name="CVV"/>
-                            </LabelContainerColumn>
-                        </LabelContainerRow>
-                    </PagamentoContainer>                  
-                    <Footer>
-                        <MensagemCartao>{mensagemCartao}</MensagemCartao>
-                        <Termos>Ao continuar, você concorda com os nossos Termos e Condições</Termos>
-                        <Finaliza onClick={confirmaCompra}>Finalizar Compra</Finaliza>
-                    </Footer>
+                 <Pagamento>
+                    {dadosDeEntregaExiste === true ? 
+                    <>
+                        <SectionHeader>
+                            <Titulo>PAGAMENTO</Titulo>
+                        </SectionHeader>
+                        <PagamentoContainer>
+                            <FormPagamento onSubmit={handleSubmit2(createDataPagamento)}>
+                                <LabelContainer>
+                                    <Label  htmlFor="numero">Digite o número do seu cartão*</Label>
+                                    <InputNumeroDoCartao 
+                                    type="text"
+                                    placeholder="0000 0000 0000 0000" 
+                                    {...register2('numero')}
+                                    />
+                                    {errors2.numero && <Span>{errors2.numero.message}</Span>}
+                                </LabelContainer>
+
+                                <LabelContainer>
+                                    <Label htmlFor="nome">Digite o nome do titular do cartão*</Label>
+                                    <InputNomeDoCartao
+                                    type="text"
+                                    placeholder="Ex: Che guevara" 
+                                    {...register2('nomeTitular')}
+                                    />
+                                    {errors2.nomeTitular && <Span>{errors2.nomeTitular.message}</Span>}
+                                </LabelContainer>
+
+                                <LabelContainerRow>
+                                    <LabelContainerColumn>
+                                        <Label htmlFor="vencimento">Vencimento*</Label>
+                                        <Vencimento
+                                        type="text"
+                                        placeholder="mm/aa" 
+                                        {...register2('vencimento')}
+                                        />
+                                    </LabelContainerColumn>
+
+                                    <LabelContainerColumn>
+                                        <Label htmlFor="CVV">CVV*</Label>
+                                        <CVV
+                                        type="text"
+                                        placeholder="123" 
+                                        {...register2('cvv')}/>
+                                    </LabelContainerColumn>
+                                </LabelContainerRow>
+                                {errors2.vencimento && <Span>{errors2.vencimento.message}</Span>}
+                                {errors2.cvv && <Span>{errors2.cvv.message}</Span>}
+                                <Footer>
+                                    <MensagemCartao></MensagemCartao>
+                                    <Termos>Ao continuar, você concorda com os nossos Termos e Condições</Termos>
+                                    <Finaliza type="submit">Finalizar Compra</Finaliza>
+                                </Footer>
+                            </FormPagamento>
+                        </PagamentoContainer>                  
+
+                    </>
+                    : 
+                    <>
+                        <SectionHeader>
+                            <Titulo>PAGAMENTO</Titulo>
+                        </SectionHeader>
+                        <Mensagem>Confirme os dados de entrega antes de prosseguir com o pagamento.</Mensagem>
+                    </>
+                    }
                 </Pagamento>
-            </Container>
-            }
-        </ContainerGeral>
+                </> : <><Mensagem style={{marginTop: '200px', fontSize: '30px'}}>Confirmamos o pagamento! Obrigado por comprar conosco.</Mensagem></>}
+            </Container> 
+        </ContainerGeral> 
         </Gambiarra>
     );
 }
