@@ -8,7 +8,7 @@ export const HistoricoProvider = ({children}) => {
 
     const [historicoDeCompra, setHistoricoDeCompra] = useState([])
 
-    useEffect(() => {console.log(historicoDeCompra)},[historicoDeCompra])
+    useEffect(() => {console.log('Funciona')},[historicoDeCompra])
     return(
         <HistoricoContext.Provider value={{historicoDeCompra, setHistoricoDeCompra}}>{children}</HistoricoContext.Provider>
     )

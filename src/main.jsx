@@ -554,7 +554,7 @@ const router = createBrowserRouter([
     path:"/",
     element: <App/>,
     children:[
-      {path: "Home", element: <Home/>},
+      {path: "/", element: <Home/>},
       {path: "Camisas", element: <Camisas data={camisas} variacoes={camisa_variacoes}/>},
       {path: "FootWear", element: <FootWear data={tenis} variacoes={tenis_variacoes}/>},
       {path: "HeadWear", element: <HeadWear data={caps} variacoes={caps_variacoes}/>},

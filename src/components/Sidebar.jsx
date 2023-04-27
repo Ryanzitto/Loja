@@ -221,7 +221,7 @@ const Sidebar = () => {
         <Container>
             {carrinhoEstado === "aberto" ? <Carrinho/> : null}
             <LogoContainer>
-                <Link to="/Home" style={linkStyle}>
+                <Link to="/" style={linkStyle}>
                     <Logo src="./img/logo.jfif"/>
                 </Link>
             </LogoContainer>
