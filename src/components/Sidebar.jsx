@@ -226,10 +226,10 @@ const Sidebar = () => {
                 </Link>
             </LogoContainer>
             <ListNav>
-                <Link to="/Home" style={linkStyle}>
+                <Link to="/Perfil" style={linkStyle}>
                     <Section>
-                        <Icon src="./img/house.png"/>
-                        <Texto>Home</Texto>
+                        <Icon src="./img/account.png"/>
+                        <Texto>Profile</Texto>
                     </Section>
                 </Link>
                 <Link to="/Camisas" style={linkStyle}>

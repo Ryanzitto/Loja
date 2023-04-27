@@ -56,7 +56,7 @@ align-items: center;
     }
     to{
         opacity: 1;
-        width: 5%;
+        width: 50%;
     
         }
     }
@@ -266,7 +266,7 @@ cursor: pointer;
 const Confirma = styled.button`
 width: 100%;
 height: 100%;
-background: #161616f9;
+background: #5c5c5cb9;
 color: white;
 border: none;
 border-radius: 10px;
@@ -274,14 +274,6 @@ cursor: pointer;
 letter-spacing: 1px;
 font-weight: 700;
 font-size: 18px;
-&:hover{
-    animation: anime ease 3s both;
-    @keyframes anime {
-        to{
-            background-color: #ff002b;
-        }       
-    }
-}
 `
 
 const clickStyle = {
@@ -304,7 +296,7 @@ const Especificacoes = ({item, state, setState, variacoes}) => {
         setState(!state)
     }
     
-    const [tamanho, setTamanho] = useState('') 
+    const [tamanho, setTamanho] = useState(null) 
 
     const handleClickP = () => {
         if(item[0].tipo === 'tenis'){
@@ -331,7 +323,7 @@ const Especificacoes = ({item, state, setState, variacoes}) => {
         
     }
 
-    const [cor, setCor] = useState('')
+    const [cor, setCor] = useState(null)
 
     const escolhePreto = () => {
         setCor('Preto')
@@ -447,7 +439,8 @@ const Especificacoes = ({item, state, setState, variacoes}) => {
                                 </Section>
                                 <Section>
                                     <ConfirmaContainer>
-                                        <Confirma onClick={addToCart} >Confirmar</Confirma>
+                                        { indice.tipo != 'tenis' && <Confirma style={cor && tamanho != null ? {backgroundColor:'#111111f8'} : null} onClick={addToCart} >Confirmar</Confirma>}
+                                        { indice.tipo === 'tenis' && <Confirma style={tamanho != null ? {backgroundColor:'#111111f8'} : null} onClick={addToCart} >Confirmar</Confirma>}
                                     </ConfirmaContainer>
                                 </Section>
                             </RightContainer>

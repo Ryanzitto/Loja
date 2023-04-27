@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useContext, useState, useEffect, useRef } from "react";
 import { CarrinhoContext } from '../context/CarrinhoContext';
+import { HistoricoContext } from "../context/HistoricoContext";
 
 import Sidebar from "../components/Sidebar";
 
@@ -9,7 +10,6 @@ width: 100vw;
 height: 100vh;
 display: flex;
 overflow-x: hidden;
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 8px;
@@ -19,47 +19,58 @@ overflow-x: hidden;
   background: #000;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 1000px){
+flex-direction: column;
+}
 `
 const ContainerGeral = styled.div`
-width: 100vw;
+width: 80vw;
 display: flex;
-justify-content: flex-end;
+justify-content: center;
 flex-direction: column;
-align-items: flex-end;
+align-items: center;
+
+@media screen and (max-width: 1000px){
+width: 100vw;
+}
 `
 
-const Nav = styled.div`
+const SidebarContainer = styled.div`
 width: 20vw;
 height:100vh;
 position: relative;
+
+@media screen and (min-width: 801px) and (max-width: 1000px){
+width: 100vw;
+height: 20vh;
+}
+@media screen and (max-width: 800px){
+height: 0;
+}
 `
 
 const Header = styled.div`
-width: 90%;
+width: 100%;
 height: 200px;
 background-color: #111111f1;
 display: flex;
 align-items: center;
-justify-content: flex-start;
+justify-content: center;
 `
 const HeaderTitulo = styled.h1`
 font-size: 70px;
 color: white;
-margin-left: 150px;
-
-`
-
-const Logo = styled.img`
-width: 100px;
-height: 70px;
-margin-left: 260px;
-border-radius: 10px;
 `
 const Container = styled.div`
-width: 80%;
+width: 100%;
 height: 100%;
 display: flex;
 justify-content: center;
+
+@media screen and (max-width: 900px){
+flex-direction: column;
+}
 `
 const DadosDeEntrega = styled.div`
 width: 33%;
@@ -68,12 +79,20 @@ margin-top: 30px;
 display: flex;
 flex-direction: column;
 align-items: center;
+
+@media screen and (max-width: 900px){
+width: 100%
+}
 `
 const FormContainer = styled.form`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
 width: 60%;
+@media screen and (max-width: 900px){
+width: 100%;
+align-items: center;
+}
 `
 const Body = styled.div`
 display: flex;
@@ -98,11 +117,22 @@ const Revisao = styled.div`
 width: 34%;
 height: 100%;
 margin-top: 30px;
+
+@media screen and (max-width: 900px){
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
 `
 const Pagamento = styled.div`
 width: 33%;
 height: 100%;
 margin-top: 30px;
+@media screen and (max-width: 900px){
+width: 100%
+}
 `
 const SectionHeader = styled.div`
 width: 100%;
@@ -128,13 +158,15 @@ justify-content: space-evenly;
 align-items: center;
 margin-top: 10px;
 border-bottom: 1px solid black;
+@media screen and (max-width: 900px){
+width: 80%
+}
 `
 const Left = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
 align-items: center;
-
 `
 const Mid = styled.div`
 display: flex;
@@ -302,11 +334,12 @@ text-align: center;
 width: 100%;
 `
 
-const MensagemCartao = styled.p`
+const MensagemErro = styled.p`
 font-size: 16px;
 text-align: center;
 width: 50%;
 margin-bottom: 50px;
+color: red;
 `
 const Alterar = styled.button`
 width: 100px;
@@ -317,18 +350,6 @@ color: white;
 margin-top: 15px;
 border-radius: 5px;
 cursor: pointer;
-`
-const ContainerPosVenda = styled.div`
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-
-`
-const MensagemPosVenda = styled.h1`
-font-size: 20px;
-margin-left: 250px;
 `
 const Span = styled.span`
 font-size: 12px;
@@ -345,6 +366,7 @@ align-items: center;
 import {useForm} from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver} from '@hookform/resolvers/zod'
+import { useActionData } from "react-router-dom";
 
 const createDataFormSchema = z.object({
     email: z.string()
@@ -390,6 +412,8 @@ const Checkout = () => {
 
     const {sacola, setSacola} = useContext(CarrinhoContext)
 
+    const[mensagem, setMensagem] = useState('')
+
     useEffect(() => {
 		setTotal(sacola.reduce((total, obj) => total + obj.preço, 0))
 	}, [sacola])
@@ -408,10 +432,14 @@ const Checkout = () => {
     }
 
     const createDataPagamento = (data) => {
-        setDadosDePagamento(data)
-        console.log(dadosDePagamento)
-        setCompraConfirmada(true)
-        setSacola([])
+        if(sacola.length >= 1){
+            setDadosDePagamento(data)
+            setCompraConfirmada(true)
+            setHistoricoDeCompra([...historicoDeCompra, sacola])
+            setSacola([])
+        }else{
+            setMensagem('Não há nenhum item no carrinho!')
+        }
     }
 
     const resetaDadosEntrega = () => {
@@ -419,13 +447,16 @@ const Checkout = () => {
     setDadosDeEntregaExiste(false)
     }
 
+    const {historicoDeCompra, setHistoricoDeCompra} = useContext(HistoricoContext)
+
     return (
         
         <Gambiarra>
-        <Sidebar/>
+            <SidebarContainer>
+                <Sidebar/>
+            </SidebarContainer>      
         <ContainerGeral>           
             <Header>
-                <Logo src="./img/logo.jfif"/>
                 <HeaderTitulo>CHECKOUT</HeaderTitulo>
             </Header>
             <Container> 
@@ -498,11 +529,6 @@ const Checkout = () => {
                                 <ImagemContainer>
                                     <ImagemItem src={item.url}/>
                                 </ImagemContainer>
-                                {/* <QuantidadeContainer>
-                                    <Decremento>-</Decremento>
-                                    <Display/>
-                                    <Incremento>+</Incremento>
-                                </QuantidadeContainer> */}
                             </Left>
                             <Mid>
                                 <NomeProduto>{item.nome}</NomeProduto>
@@ -566,7 +592,7 @@ const Checkout = () => {
                                 {errors2.vencimento && <Span>{errors2.vencimento.message}</Span>}
                                 {errors2.cvv && <Span>{errors2.cvv.message}</Span>}
                                 <Footer>
-                                    <MensagemCartao></MensagemCartao>
+                                    <MensagemErro>{mensagem}</MensagemErro>
                                     <Termos>Ao continuar, você concorda com os nossos Termos e Condições</Termos>
                                     <Finaliza type="submit">Finalizar Compra</Finaliza>
                                 </Footer>

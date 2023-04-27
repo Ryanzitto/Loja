@@ -234,7 +234,6 @@ const Carrinho = () => {
 
     const {toggleCarrinhoEstado} = useContext(CarrinhoContext)
 
-
     const {toggleCheckoutEstado} = useContext(CarrinhoContext)
 
     const {sacola, setSacola} = useContext(CarrinhoContext)
@@ -242,7 +241,6 @@ const Carrinho = () => {
 
     useEffect(() => {
 		setPreco(sacola.reduce((total, obj) => total + obj.preço, 0))
-        console.log(sacola)
 	}, [sacola])
 
     const openEspecificacoes = (indice) => {

@@ -11,10 +11,14 @@ import FootWear from './routes/FootWear'
 import HeadWear from './routes/HeadWear'
 import Bermudas from './routes/Bermudas'
 import Checkout from './routes/CheckoutRoute'
+import Perfil from './routes/Perfil'
 
 import { CarrinhoProvider } from './context/CarrinhoContext'
 import { FavoritoProvider } from './context/FavoritosContext'
+import { HistoricoContext, HistoricoProvider } from './context/HistoricoContext'
+
 import Favoritos from './components/Favoritos'
+
 
 
 
@@ -557,6 +561,7 @@ const router = createBrowserRouter([
       {path: "Bermudas", element: <Bermudas data={bermudas} variacoes={bermudas_variacoes}/>},
       {path: "Favorites", element: <Favoritos/>},
       {path: "Checkout", element: <Checkout/>},
+      {path: "Perfil", element: <Perfil/>},
     ]
   }
 ])
@@ -565,7 +570,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <CarrinhoProvider>
         <FavoritoProvider>
-        <RouterProvider router={router}/>
+          <HistoricoProvider>
+            <RouterProvider router={router}/>
+          </HistoricoProvider>
         </FavoritoProvider>
       </CarrinhoProvider>
   </React.StrictMode>,
