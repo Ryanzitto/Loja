@@ -48,6 +48,9 @@ justify-content: center;
 align-items: center;
 text-align: center;
 
+@media only screen and (min-width: 801px) and (max-width: 1000px) {
+    display: none;
+}
 @media only screen and (max-width: 800px) {
     width: 50%;
     display: none;
@@ -72,7 +75,7 @@ align-items: center;
     align-items: center;
     border-radius: 10px;
     height: 100%;
-    gap: 20px;
+ 
 }
 @media only screen and (max-width: 800px) {
     display: flex;
@@ -82,6 +85,7 @@ align-items: center;
     border-radius: 10px;
     height: 100%;
     margin-top: 75px;
+    gap: 20px;
 }
 `
 
@@ -226,6 +230,12 @@ const Sidebar = () => {
                 </Link>
             </LogoContainer>
             <ListNav>
+                <Link to="/" style={linkStyle}>
+                    <Section>
+                        <Icon src="./img/house.png"/>
+                        <Texto>Home</Texto>
+                    </Section>
+                </Link>
                 <Link to="/Perfil" style={linkStyle}>
                     <Section>
                         <Icon src="./img/account.png"/>

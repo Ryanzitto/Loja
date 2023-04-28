@@ -19,10 +19,15 @@ justify-content: space-evenly;
 align-items: center;
 margin-left: 15px;
 margin-top: 20px;
-
+overflow-x: auto;
 @media only screen and (max-width: 800px) and (min-width: 600px){
     justify-content: center;
     gap: 60px;
+}
+@media only screen and (max-width: 599px) and (min-width: 0px){
+    margin-left: 0px;
+    gap: 30px;
+    justify-content: flex-start;
 }
 `
 const Item = styled.div`
@@ -74,7 +79,7 @@ color: #ffffff;
 margin-left: 25px;
 margin-top: 20px;
 
-@media only screen and (max-width: 800px) and (min-width: 400px){
+@media only screen and (max-width: 800px) and (min-width: 0px){
 margin-top: 60px;
 }
 @media only screen and (min-width: 1550px){

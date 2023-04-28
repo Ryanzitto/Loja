@@ -50,8 +50,7 @@ justify-content: center;
 flex-direction: column;
 gap: 10px;
 
-@media only screen and (max-width: 1000px) {
-  }
+@media only screen and (max-width: 500px) {}
 `
 const Titulo = styled.h1`
 font-size: 60px;
@@ -61,8 +60,12 @@ letter-spacing: 2px;
 padding: 10px;
 background-color: #1b1b1bed;
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (min-width: 501px) and (max-width: 1100px) {
     margin-left: 320px;
+}
+@media only screen and (min-width: 0px) and (max-width: 500px) {
+    font-size: 30px;
+    margin-left: 480px;
 }
 `
 
@@ -79,7 +82,11 @@ padding: 15px;
 @media only screen and (max-width: 1100px) {
     margin-left: 320px;
 }
-
+@media only screen and (min-width: 0px) and (max-width: 500px) {
+    font-size: 16px;
+    width: 300px;
+    margin-left: 480px;
+}
 `
 
 const BannerOutLet = () => {

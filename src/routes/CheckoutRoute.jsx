@@ -157,7 +157,7 @@ display: flex;
 justify-content: space-evenly;
 align-items: center;
 margin-top: 10px;
-border-bottom: 1px solid black;
+
 @media screen and (max-width: 900px){
 width: 80%
 }
@@ -320,6 +320,11 @@ cursor: pointer;
 &:hover{
     background-color: #2ec92ee8;
 }
+
+@media screen and (max-width: 900px) {
+    margin-left: 0px;
+    margin-bottom: 50px;
+}
 `
 
 const Total = styled.h2`
@@ -392,10 +397,10 @@ const createDataFormPagamentoSchema = z.object({
     .min(10, "O nome deve ter no mínimo 10 caracteres"),
 
     vencimento: z.string()
-    .min(5, ("Informações estão erradas")),
+    .min(5, ("vencimento requer  'mês'  '/'  'ano'")),
 
     cvv: z.string()
-    .min(3, "CVV precisar conter 3 dígitos"),
+    .min(3, "CVV precisa conter 3 dígitos"),
 })
 
 const Checkout = () => {

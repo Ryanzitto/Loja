@@ -49,6 +49,7 @@ width: 50%;
 height: 700px;
 justify-content: center;
 align-items: center;
+
 @keyframes entrada {
     from{
         width: 30%;
@@ -60,6 +61,22 @@ align-items: center;
     
         }
     }
+}
+
+@media screen and (max-width: 600px) {
+flex-direction: column;
+width: 90%;
+height: 800px;
+justify-content: center;
+align-items: center;
+}
+
+@media screen and (min-width: 601px) and (max-width: 1300px) {
+flex-direction: column;
+width: 90%;
+height: 700px;
+justify-content: center;
+align-items: center;
 }
 `
 const Header = styled.div`
@@ -100,8 +117,12 @@ align-items: center;
 
 const ImagemProduto = styled.img`
 width: 300px;
+
 @media screen and (max-width: 1300px) {
-width: 75%;
+width: 150px;
+}
+@media screen and (max-width: 800px) {
+width: 150px;
 }
 `
 const DescricaoProduto = styled.p`
@@ -113,7 +134,6 @@ font-size: 1.2em;
 
 @media screen and (max-width: 1300px) {
 margin-top: 20px;
-width: 200px;
 font-size: 1.0em;
 }   
 
@@ -138,6 +158,10 @@ width: 25px;
 height: 25px;
 cursor: pointer;
 margin-right: 8px;
+
+@media screen and (max-width: 600px) {
+margin-bottom: 100px;
+}
 `
 const RightContainer = styled.div`
 width: 100%;
@@ -192,12 +216,18 @@ align-items: center;
 flex-direction: row;
 gap: 10px;
 
-@media screen and (max-width: 1300px) {
+@media screen and (min-width: 1300px) {
     justify-content: center;
     margin-left: 0;
     height: 22%;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+@media screen and (max-width: 1299px) {
+    justify-content: center;
+    margin-left: 0;
+    height: 22%;
+    margin-top: 20px;
 }
 
 `
