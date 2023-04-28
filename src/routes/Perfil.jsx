@@ -63,6 +63,9 @@ width: 650px;
 const HeaderTitulo = styled.h1`
 font-size: 70px;
 color: white;
+@media screen and (max-width: 500px) {
+font-size: 40px;
+}
 `
 const Container = styled.div`
 width: 100%;
@@ -159,9 +162,8 @@ font-size: 16px;
 `
 const Mensagem = styled.h3`
 text-align: center;
-margin-top: 200px;
+margin-top: 300px;
 `
-
 
 const Perfil = () => {
 

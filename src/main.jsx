@@ -15,7 +15,7 @@ import Perfil from './routes/Perfil'
 
 import { CarrinhoProvider } from './context/CarrinhoContext'
 import { FavoritoProvider } from './context/FavoritosContext'
-import { HistoricoContext, HistoricoProvider } from './context/HistoricoContext'
+import { HistoricoProvider } from './context/HistoricoContext'
 
 import Favoritos from './components/Favoritos'
 

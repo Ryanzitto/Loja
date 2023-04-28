@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { CarrinhoContext } from "../context/CarrinhoContext";
-import { useCallback, useContext } from "react";
 
 const AddIcon = styled.img`
 width:20px;
@@ -35,7 +33,7 @@ const Adcionar = ({item, setItem, setState, state}) => {
 
     return (
         <>
-        <AddIcon onClick={openDetails} src="./img/add.png"/>
+            <AddIcon onClick={openDetails} src="./img/add.png"/>
         </>
     );
 }

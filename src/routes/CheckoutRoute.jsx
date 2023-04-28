@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect} from "react";
 import { CarrinhoContext } from '../context/CarrinhoContext';
 import { HistoricoContext } from "../context/HistoricoContext";
 
@@ -371,7 +371,6 @@ align-items: center;
 import {useForm} from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver} from '@hookform/resolvers/zod'
-import { useActionData } from "react-router-dom";
 
 const createDataFormSchema = z.object({
     email: z.string()

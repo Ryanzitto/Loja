@@ -13,6 +13,7 @@ border-right: 1px solid #e2e2e2;
 display: flex;
 animation: animacaoDeEntrada 0.5s ease;
 flex-direction: column;
+z-index: 1;
 
 @keyframes animacaoDeEntrada {
     from{
@@ -162,17 +163,6 @@ color: #eb2929;
 font-weight: 600;
 font-size: 14px;
 `
-const Personalizar = styled.p`
-color: #eb2929;
-font-weight: 700;
-font-size: 14px;
-text-decoration: underline;
-cursor: pointer;
-
-&:hover{
-color: #0f0f0f;
-}
-`
 const IconeDescarte = styled.img`
 width: 15px;
 height: 15px;
@@ -258,21 +248,20 @@ const Carrinho = () => {
                             <Titulo>Carrinho</Titulo>
                             <Estado>Nenhum item ainda, vá comprar!</Estado>
                         </TopBody> : null}
-                    {sacola.map((indice) => {
-                        return (
-                            <ItemContainer key={indice.id}>
-                                <ImagemContainer>
-                                    <ImagemProduto src={indice.url} />  
-                                </ImagemContainer>                
-                                <Infos>
-                                    <Nome>{indice.nome}</Nome>
-                                    <Cor>{indice.cor}</Cor>
-                                    <Tamanho>{`Size: ${indice.tamanho}`}</Tamanho>
-                                    <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
-                                </Infos>
-                                <IconeDescarte onClick={() => {setSacola(sacola.filter((item) => item !== indice))}} src="./img/trash.png"/>
-                            </ItemContainer>
-                    )})}
+                        {sacola.map((indice) => {
+                            return (
+                                <ItemContainer key={indice.id}>
+                                    <ImagemContainer>
+                                        <ImagemProduto src={indice.url} />  
+                                    </ImagemContainer>                
+                                    <Infos>
+                                        <Nome>{indice.nome}</Nome>
+                                        <Cor>{indice.cor}</Cor>
+                                        <Tamanho>{`Size: ${indice.tamanho}`}</Tamanho>
+                                        <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
+                                    </Infos>
+                                    <IconeDescarte onClick={() => {setSacola(sacola.filter((item) => item !== indice))}} src="./img/trash.png"/>
+                                </ItemContainer>)})}
                 </Body>
                 {sacola.length > 0 ?            
                     <SubtotalContainer>

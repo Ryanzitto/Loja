@@ -6,9 +6,7 @@ import Favoritar from "../components/FavButton";
 import Adcionar from "../components/AddButton";
 import Especificacoes from "../components/Especificacoes";
 
-import { useState ,useContext } from 'react'
-import { CarrinhoContext } from '../context/CarrinhoContext';
-
+import { useState } from 'react'
 
 const Containergeral = styled.div`
 display: flex;

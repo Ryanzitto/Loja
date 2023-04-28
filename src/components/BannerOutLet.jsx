@@ -65,7 +65,7 @@ background-color: #1b1b1bed;
 }
 @media only screen and (min-width: 0px) and (max-width: 500px) {
     font-size: 30px;
-    margin-left: 480px;
+    margin-left: 450px;
 }
 `
 
@@ -85,7 +85,7 @@ padding: 15px;
 @media only screen and (min-width: 0px) and (max-width: 500px) {
     font-size: 16px;
     width: 300px;
-    margin-left: 480px;
+    margin-left: 450px;
 }
 `
 

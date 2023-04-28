@@ -118,7 +118,7 @@ align-items: center;
     width: 100px;
     
 &:hover{
-    background-color: none;
+    background-color: transparent;
 }
 }
 `

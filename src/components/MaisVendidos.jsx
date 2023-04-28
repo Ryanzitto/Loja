@@ -1,12 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useContext, useState } from 'react'
-import { CarrinhoContext } from '../context/CarrinhoContext'; 
-import Especificacoes from "./Especificacoes";
-
-import Favoritar from "../components/FavButton";
-import Adcionar from "./AddButton";
+import { useState } from 'react'
 
 const ContainerDeus= styled.div`
 width: 80vw;
@@ -147,7 +142,7 @@ const linkStyle = {
     width: '80px'
 }
 
-const MaisVendidos = ({data, variacoes, state, setState}) => {
+const MaisVendidos = ({data}) => {
 
     const [isClicked, setIsClicked] = useState(false)
 

@@ -240,9 +240,6 @@ width: 100%;
 
 const Home = () => {
 
-  const {checkoutEstado} = useContext(CarrinhoContext)
-
-
  return (
     <ContainerGeral>
       <Nav>

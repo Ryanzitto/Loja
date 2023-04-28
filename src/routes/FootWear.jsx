@@ -5,8 +5,7 @@ import Footer from "../components/Footer";
 import Favoritar from "../components/FavButton";
 import Especificacoes from "../components/Especificacoes";
 
-import { useContext, useState } from 'react'
-import { CarrinhoContext } from '../context/CarrinhoContext';
+import { useState } from 'react'
 import Adcionar from "../components/AddButton";
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import styled from 'styled-components'
 import Footer from "../components/Footer";
@@ -112,8 +112,6 @@ const Camisas = ({data, variacoes}) => {
     const [isClicked, setIsClicked] = useState(false)
 
     const [qualItem, setQualItem] = useState()
-
-    const {checkoutEstado} = useContext(CarrinhoContext)
 
     return (
         <Containergeral>
