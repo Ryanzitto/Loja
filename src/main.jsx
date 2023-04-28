@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {createHashRouter, RouterProvider} from 'react-router-dom'
 
 import Home from './routes/Home.jsx'
 import Camisas from './routes/Camisas'
@@ -549,7 +549,7 @@ const caps_variacoes = [
 
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path:"/",
     element: <App/>,
