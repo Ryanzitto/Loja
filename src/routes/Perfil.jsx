@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import { useContext } from "react";
-import { HistoricoContext } from "../context/HistoricoContext";
+import { useSelector} from 'react-redux'
 
 const ContainerPai = styled.div`
 width: 100vw;
@@ -167,9 +166,7 @@ margin-top: 300px;
 
 const Perfil = () => {
 
-    const {historicoDeCompra, setHistoricoDeCompra} = useContext(HistoricoContext)
-
-    console.log(historicoDeCompra)
+    const { historic } = useSelector(rootReducer => rootReducer.cartReducer)
 
     return (
         <ContainerPai>
@@ -184,12 +181,12 @@ const Perfil = () => {
                 </Header>
                 <Container> 
                     <Historico>
-                        {historicoDeCompra.length >= 1 ?
+                        {historic.length >= 1 ?
                         <HeaderHistorico>
                             <SubTitulo>HISTÓRICO  DE  COMPRAS</SubTitulo>
                         </HeaderHistorico>: <><Mensagem>Seu histórico de compras está vazio, navegue pelo site e compre alguns de nossos produtos</Mensagem></>}
                         <HistoricoBody>
-                            {historicoDeCompra.map((arrayFilho) => {
+                            {historic.map((arrayFilho) => {
                                 return arrayFilho.map((item) => {
                                     return(
                                         <ItemContainer key={item.id}>
@@ -201,9 +198,9 @@ const Perfil = () => {
                                             <Right>
                                                 <NomeProduto>{item.nome}</NomeProduto>
                                                 <Colecao>{item.colecao}</Colecao>
-                                                <Info>{item.cor} -{item.tamanho}-</Info>
+                                                <Info>-{item.quantity}-</Info>
                                                 <PreçoContainer>
-                                                    <Preço>{(item.preço).toFixed(2)} R$</Preço>
+                                                    <Preço>{(item.preço).toFixed(2)} R$/UN.</Preço>
                                                 </PreçoContainer>
                                             </Right>
                                         </ItemContainer>

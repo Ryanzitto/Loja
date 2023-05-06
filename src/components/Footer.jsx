@@ -81,17 +81,7 @@ gap: 2px;
 align-items: center;
 }
 `
-const List2 = styled.ul`
-gap: 10px;
-display: flex;
-flex-direction: column;
-
-@media screen and (max-width: 600px) {
-gap: 2px;
-align-items: center;
-}
-`
-const ListItem = styled.li`
+const ListItem = styled.a`
 list-style: none;
 letter-spacing: 8px;
 margin-bottom: 10px;
@@ -100,6 +90,7 @@ color: #ffffff;
 opacity: 0.7;
 margin-left: 10px;
 font-size: 14px;
+text-decoration: none;
 &:hover{
     opacity: 1;
 }
@@ -120,36 +111,6 @@ display: none;
 }
 `
 
-const Line2 = styled.div`
-height: 50%;
-width: 0.2px;
-background-color: #ffffff28;
-
-@media screen and (max-width: 600px) {
-  width: 30%;
-  height: 0.2px;
-}
-`
-const ListItem2 = styled.li`
-list-style: none;
-letter-spacing: 5px;
-margin-bottom: 10px;
-cursor: pointer;
-color: #ffffff;
-opacity: 0.7;
-margin-left: 10px;
-font-size: 10px;
-&:hover{
-    opacity: 1;
-}
-@media only screen and (max-width: 600px) {
-   font-size: 10px;
-}
-@media only screen and (min-width: 1600px) {
-   font-size: 16px;
-}
-`
-
 const Footer = () => {
     return (
         <Container>
@@ -159,17 +120,10 @@ const Footer = () => {
             <Line1/>
             <Right>
               <List>
-                <ListItem>GITHUB</ListItem>
-                <ListItem>LINKEDIN</ListItem>
-                <ListItem>PORTIFOLIO</ListItem>
+                <ListItem href="https://github.com/Ryanzitto" target="_blank" >GITHUB</ListItem>
+                <ListItem href="https://www.linkedin.com/in/ryan-henrique-1b4075233/" target="_blank">LINKEDIN</ListItem>
+                <ListItem  style={{opacity: 0.2, textDecoration: 'line-through', cursor: 'not-allowed'}}>PORTIFOLIO</ListItem>
               </List>
-            <Line2/>
-              <List2>
-                <ListItem2>WHO WE ARE</ListItem2>
-                <ListItem2>CONTACT</ListItem2>
-                <ListItem2>SIKE LIMITED</ListItem2>
-                <ListItem2>JUST DO THAT</ListItem2>
-              </List2>
             </Right>       
         </Container>
     );

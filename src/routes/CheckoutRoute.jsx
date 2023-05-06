@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useContext, useState, useEffect} from "react";
-import { CarrinhoContext } from '../context/CarrinhoContext';
-import { HistoricoContext } from "../context/HistoricoContext";
-
+import { useState, useEffect} from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from "../components/Sidebar";
+import { removeProductFromCart } from "../redux/cart/actions";
+
 
 const Gambiarra = styled.div`
 width: 100vw;
@@ -182,7 +182,7 @@ font-size: 12px;
 margin-bottom: 10px;
 `
 const Info = styled.p`
-font-size: 10px;
+font-size: 14px;
 margin-bottom: 10px;
 `
 const ImagemContainer = styled.div`
@@ -328,9 +328,11 @@ cursor: pointer;
 `
 
 const Total = styled.h2`
-margin-top: 20px;
+margin-top: 10px;
 margin-bottom: 20px;
 text-align: center;
+background-color: #131313;
+color: white;
 `
 
 const Mensagem = styled.p`
@@ -367,10 +369,18 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 `
+const SubTitulo = styled.p`
+font-size: 15px;
+font-weight: 500;
+width: 100%;
+text-align: center;
+letter-spacing: 1px;
+`
 
 import {useForm} from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver} from '@hookform/resolvers/zod'
+import { addToHistory, clearCart } from "../redux/cart/actions";
 
 const createDataFormSchema = z.object({
     email: z.string()
@@ -404,6 +414,10 @@ const createDataFormPagamentoSchema = z.object({
 
 const Checkout = () => {
 
+    const { products } = useSelector(rootReducer => rootReducer.cartReducer)
+
+    const dispatch = useDispatch()
+
     const [total, setTotal] = useState(0)
 
     const [dadosDeEntrega, setDadosDeEntrega] = useState({})
@@ -414,13 +428,11 @@ const Checkout = () => {
 
     const [compraConfirmada, setCompraConfirmada] = useState(false)
 
-    const {sacola, setSacola} = useContext(CarrinhoContext)
-
     const[mensagem, setMensagem] = useState('')
 
     useEffect(() => {
-		setTotal(sacola.reduce((total, obj) => total + obj.preço, 0))
-	}, [sacola])
+		setTotal(products.reduce((total, obj) => total + obj.preço * obj.quantity, 0))
+	}, [products])
     
 
     const { register, handleSubmit, formState: {errors}} = useForm({
@@ -436,11 +448,11 @@ const Checkout = () => {
     }
 
     const createDataPagamento = (data) => {
-        if(sacola.length >= 1){
+        if(products.length >= 1){
             setDadosDePagamento(data)
             setCompraConfirmada(true)
-            setHistoricoDeCompra([...historicoDeCompra, sacola])
-            setSacola([])
+            dispatch(addToHistory(products))
+            dispatch(clearCart())
         }else{
             setMensagem('Não há nenhum item no carrinho!')
         }
@@ -450,9 +462,7 @@ const Checkout = () => {
     setDadosDeEntrega({})
     setDadosDeEntregaExiste(false)
     }
-
-    const {historicoDeCompra, setHistoricoDeCompra} = useContext(HistoricoContext)
-
+    
     return (
         
         <Gambiarra>
@@ -526,7 +536,7 @@ const Checkout = () => {
                     <SectionHeader>
                         <Titulo>REVISÃO</Titulo>
                     </SectionHeader>
-                    {sacola.map((item) =>{
+                    {products.map((item) =>{
                         return(
                         <ItemContainer key={item.id}>
                             <Left>
@@ -537,15 +547,16 @@ const Checkout = () => {
                             <Mid>
                                 <NomeProduto>{item.nome}</NomeProduto>
                                 <Colecao>{item.colecao}</Colecao>
-                                <Info>{item.cor} -{item.tamanho}-</Info>
+                                <Info>- {item.quantity} -</Info>
                                 <PreçoContainer>
-                                    <Preço>{item.preço.toFixed(2)}R$</Preço>
+                                    <Preço>{(item.preço * item.quantity).toFixed(2)}R$</Preço>
                                 </PreçoContainer>
                             </Mid>
-                            <Descartar onClick={() => {setSacola(sacola.filter((indice) => indice !== item))}} src="./img/trash.png"/>
+                            <Descartar onClick={() => {dispatch(removeProductFromCart(item.id))}}src="./img/trash.png"/>
                         </ItemContainer>
-                    )})}      
-                    {sacola.length > 0 ? <Total>{total.toFixed(2)} R$</Total> : null}                    
+                    )})} 
+                    <SubTitulo>TOTAL:</SubTitulo>     
+                    {products.length > 0 ? <Total>{total.toFixed(2)} R$</Total> : null}                    
                 </Revisao>
                  <Pagamento>
                     {dadosDeEntregaExiste === true ? 

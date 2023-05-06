@@ -5,8 +5,9 @@ import Footer from "../components/Footer";
 import Favoritar from "../components/FavButton";
 import Especificacoes from "../components/Especificacoes";
 
-import { useState } from 'react'
+import { useContext } from 'react'
 import Adcionar from "../components/AddButton";
+import { DetalhesContext } from "../context/DetalhesContext";
 
 
 const Containergeral = styled.div`
@@ -68,23 +69,6 @@ margin-top: 30px;
 `
 const ImagemProduto = styled.img`
 cursor: pointer;
-&:hover{
-    animation: anime 2s ease both;
-    @keyframes anime {
-        from{
-            opacity: 1
-        } 
-        to{
-            opacity: 0;
-        }
-    }
-}
-`
-const SegundaImagem = styled.img`
-width: 200px;
-height :200px;
-position: absolute;
-z-index: -1;
 `
 const Colecao = styled.p`
 font-size: 12px;
@@ -105,30 +89,27 @@ height: 20px;
 gap: 10px;
 `
 
-const FootWear = ({data, variacoes}) => {
+const FootWear = ({data}) => {
 
-    const [isClicked, setIsClicked] = useState(false)
-
-    const [qualItem, setQualItem] = useState()
+    const {defineItem, isOpen, qualItem} = useContext(DetalhesContext)
    
     return (
         <Containergeral>
             <Nav>
                 <Sidebar/>
             </Nav>
-            {isClicked ? <Especificacoes variacoes={variacoes} state={isClicked} setState={setIsClicked} item={qualItem} /> : null}
+            {isOpen ? <Especificacoes item={qualItem} /> : null}
             <Container>
             {data.map((item)=>{
                 return( 
                     <ContainerProduto key={item.id}>
                         <Produto>
-                            <ImagemProduto src={item.url}/>
-                            <SegundaImagem src={item.urlSubImage}/>
+                            <ImagemProduto onClick={() => {defineItem(item)}} src={item.url}/>
                         </Produto>
                         <Colecao>{item.colecao}</Colecao>
                         <PreçoProduto>{item.preço.toFixed(2)} R$</PreçoProduto>
                         <ContainerBotoes>
-                        <Adcionar setItem={setQualItem} state={isClicked} setState={setIsClicked} item={item}/>
+                        <Adcionar item={item}/>
                             <Favoritar item={item}/>
                             </ContainerBotoes>
                         </ContainerProduto>

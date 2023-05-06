@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
+import { useDispatch } from 'react-redux'
+import { addProductToCart } from "../redux/cart/actions";
+
 const AddIcon = styled.img`
-width:20px;
+width: 20px;
 height: 20px;
 padding:3px;
 cursor: pointer;
@@ -24,16 +27,17 @@ margin-right: 50px;
 }
 `
 
-const Adcionar = ({item, setItem, setState, state}) => {
+const Adcionar = ({item}) => {
+    
+    const dispatch = useDispatch()
 
-    const openDetails = () => {
-        setState(!state)
-        setItem([item])
+    const handleClick = () => {
+        dispatch(addProductToCart(item))
     }
 
     return (
         <>
-            <AddIcon onClick={openDetails} src="./img/add.png"/>
+            <AddIcon onClick={handleClick} src="./img/add.png"/>
         </>
     );
 }

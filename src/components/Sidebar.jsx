@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
-import { CarrinhoContext } from '../context/CarrinhoContext';
 import { FavoritosContext } from '../context/FavoritosContext';
 import React from "react";
 import styled from 'styled-components'
 
 import Carrinho from './Carrinho';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { openCart } from '../redux/cart/actions';
 
 const linkStyle = {
     textDecoration: "none",
@@ -75,7 +77,6 @@ align-items: center;
     align-items: center;
     border-radius: 10px;
     height: 100%;
- 
 }
 @media only screen and (max-width: 800px) {
     display: flex;
@@ -214,16 +215,20 @@ margin-top: 3px;
 `
 const Sidebar = () => {
 
-    const {carrinhoEstado, toggleCarrinhoEstado} = useContext(CarrinhoContext)
-
     const {favorito} = useContext(FavoritosContext)
     
-    const {sacola} = useContext(CarrinhoContext)
+    const dispatch = useDispatch()
 
-    
+    const { cartIsOpen } = useSelector(rootReducer => rootReducer.cartReducer)
+    const { products } = useSelector(rootReducer => rootReducer.cartReducer)
+
+    const handleClickCart = () => {
+        dispatch(openCart())
+    }
+
     return (
         <Container>
-            {carrinhoEstado === "aberto" ? <Carrinho/> : null}
+            {cartIsOpen ? <Carrinho/> : null}
             <LogoContainer>
                 <Link to="/" style={linkStyle}>
                     <Logo src="./img/logo.jfif"/>
@@ -278,10 +283,10 @@ const Sidebar = () => {
                 </Link >
             </ListNav>
                 <CarrinhoContainer>
-                    <IconeCarrinho onClick={() => {toggleCarrinhoEstado()}} src="./img/add.png"/>
-                    {sacola.length > 0 ? 
+                    <IconeCarrinho onClick={handleClickCart} src="./img/add.png"/>
+                    {products.length > 0 ? 
                         <AlertaContainer>
-                            <Alerta>{sacola.length}</Alerta>
+                            <Alerta>{products.length}</Alerta>
                         </AlertaContainer> : null}
                 </CarrinhoContainer>
         </Container>

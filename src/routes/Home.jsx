@@ -6,11 +6,7 @@ import Tags from "../components/Tags";
 import Footer from "../components/Footer";
 import MaisVendidos from "../components/MaisVendidos"
 import BannerOutLet from "../components/BannerOutLet";
-import Checkout from "./CheckoutRoute";
 
-import { useState } from "react";
-import { CarrinhoContext } from "../context/CarrinhoContext";
-import { useContext } from "react";
 
 const maisVendidos = [
   {
@@ -40,145 +36,6 @@ const maisVendidos = [
   preço: 139.90,
   colecao: "Sneackers00",
   fav: false,
-},
-]
-
-const mais_vendidos_variacoes = [
-  {
-    id: 16,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "P",
-    cor: "Preto"
-  },
-  {
-    id: 17,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "M",
-    cor: "Preto"
-  },
-  {
-    id: 18,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "G",
-    cor: "Preto"
-  },
-  {
-    id: 19,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "P",
-    cor: "Branco"
-  },
-  {
-    id: 20,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "M",
-    cor: "Branco"
-  },
-  {
-    id: 21,
-    url:  "",
-    preço: 99.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: "G",
-    cor: "Branco"
-  },
-
-]
-
-
-const outLet = [
-  {
-      tipo: "Camiseta",
-      nome: "Camisa Wanted",
-      tamanho: "GG",
-      cor: "Branco",
-      url:  "https://wantedind.com/wp-content/uploads/2022/09/camiseta-wanted-grillz-preto-900x900.jpg",
-      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
-      preço: 97.90,
-      bruto: 139.90,
-      colecao: "Premium",
-      id: 1,
-      fav: false,
-  },
-  {
-      tipo: "camiseta",
-      nome: "Camiseta Wanted",
-      tamanho: "GG",
-      cor: "Preto",
-      url:  "https://wantedind.com/wp-content/uploads/2020/08/logo-pixo-laranja-900x900.jpg",
-      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
-      preço: 66.50,
-      bruto: 94.90,
-      colecao: "Premium",
-      id: 2,
-      fav: false,
-  },
-  {
-      tipo: "Camiseta",
-      nome: "Camiseta Wanted",
-      url:  "https://wantedind.com/wp-content/uploads/2022/03/camiseta-wanted-bomb14-preto-900x900.jpg",
-      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
-      preço: 51.90,
-      bruto: 74.90,
-      colecao: "Basics",
-      cor: "Azul",
-      tamanho: "P",
-      id: 3,
-      fav: false,
-  },
-  {
-      tipo: "camiseta",
-      nome: "Camiseta Wanted",
-      tamanho: "GG",
-      cor: "Preto",
-      url:  "https://wantedind.com/wp-content/uploads/2021/05/still-camiseta-premium-offwhite1-900x900.jpg",
-      descricao: "Camiseta linha  'PREMIUM', tecido confortável de alta qualidade. a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
-      preço: 62.90,
-      bruto: 89.90,
-      colecao: "Basics",
-      id: 4,
-      fav: false,
-  },
-  {
-    tipo: "boné",
-    nome: "Boné Wanted",
-    url:  "https://wantedind.com/wp-content/uploads/2022/12/FIVE-BONE-AZUL-ALTERADO-900x900.png",
-    descricao: "Boné Sike, cofortável e estiloso, a Sike foi criada em 1998 e desde então, vem fazendo parte das culturas de rua e também da cultura TECH.",
-    preço: 74.90,
-    bruto: 52.43,
-    colecao: "Cap00",
-    cor: "Azul",
-    tamanho: "P",
-    id: "30",
-    fav: false,
 },
 ]
 
@@ -248,7 +105,7 @@ const Home = () => {
         <Body>
         <Carousel images={imagensCarrosel}/>
         <Tags/>
-        <MaisVendidos variacoes={mais_vendidos_variacoes} data={maisVendidos}/>
+        <MaisVendidos  data={maisVendidos}/>
         <BannerOutLet/>     
         <FooterContainer>
             <Footer/>

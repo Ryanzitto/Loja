@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 
 import { useContext, useState, useRef } from 'react'
 import { FavoritosContext } from "../context/FavoritosContext";
-import { CarrinhoContext } from "../context/CarrinhoContext";
+
+import Favoritar from "../components/FavButton";
+import Adcionar from "../components/AddButton";
 
 const Containergeral = styled.div`
 display: flex;
@@ -65,7 +67,6 @@ display: flex;
 flex-direction: column;
 margin-top: 30px;
 `
-
 const ContainerNoFav = styled.div`
 width: 80vw;
 height: 100vh;
@@ -114,29 +115,7 @@ position: relative;
 width: 120px;
 height: 20px;
 `
-const Adcionar = styled.img`
-width:20px;
-height: 20px;
-padding:3px;
-cursor: pointer;
-position: absolute;
-margin-right: 50px;
 
-&:hover{
-    animation: animacao 0.5s ease both;
-    @keyframes animacao {
-        from{
-            width:20px;
-            height: 20px;
-        }
-        to{
-            width: 23px;
-            height: 23px;
-            transform: translateY(-5px);
-        }
-    }
-}
-`
 const Ver = styled.button`
 width: 80px;
 height: 30px;
@@ -154,14 +133,15 @@ const style = {
 };
 
 const linkStyle = {
-    width: '80px'
+    width: '200px',
+    display: 'flex',
+    flexDirection: 'column',
+    
 }
 
 const Favoritos = () => {
 
     const verRef = useRef()
-
-
 
     const [qualRota, setQualRota] = useState()
 
@@ -209,15 +189,16 @@ const Favoritos = () => {
                         return(          
                             <ContainerProduto key={indice?.id}>
                                 <Produto>
-                                        <FavoriteIcon src="./img/heart.png"/>        
-                                    <ImagemProduto src={indice?.url}/>
+                                        <FavoriteIcon src="./img/heart.png"/>   
+                                    <Link onClick={() => {defineQualRota(indice)}} ref={verRef} style={linkStyle} to={qualRota}>
+                                        <ImagemProduto src={indice?.url}/>
+                                    </Link>                                     
                                 </Produto>
                                 <Colecao>{indice?.colecao}</Colecao>
                                 <PreçoProduto>{indice?.preço?.toFixed(2)} R$</PreçoProduto>
                                 <ContainerBotoes>
-                                    <Link ref={verRef} style={linkStyle} to={qualRota}>
-                                        <Ver onClick={() => {defineQualRota(indice)}}>Ver item</Ver>
-                                    </Link>    
+                                    <Adcionar item={indice}/>
+                                    <Favoritar item={indice}/>  
                                 </ContainerBotoes>
                             </ContainerProduto>
                             )})}

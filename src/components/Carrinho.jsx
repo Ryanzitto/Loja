@@ -1,9 +1,9 @@
-import React, { useState , useEffect, useContext} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { CarrinhoContext } from '../context/CarrinhoContext';
 import styled from 'styled-components'
-
-import Especificacoes from '../components/Especificacoes'
+import { useSelector, useDispatch } from 'react-redux'
+import { closeCart, 
+    increaseProductQuantity,  removeProductFromCart, decreaseProductQuantity} from "../redux/cart/actions";
 
 const ContainerGeral = styled.div`
 width: 20vw;
@@ -146,17 +146,32 @@ margin-left: 20px;
 }
 `
 const Nome = styled.h1`
-font-size: 12px;
+font-size: 14px;
 `
-const Cor = styled.p`
+const Colecao = styled.p`
 color: #0f0f0f;
 font-weight: 600;
 font-size: 12px;
 `
-const Tamanho = styled.p`
-color: #0f0f0f;
-font-weight: 600;
-font-size: 12px;
+const QuantidadeContainer = styled.div`
+width:50px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 5px;
+`
+const Decremento = styled.p`
+width: 10px;
+font-size: 30px;
+cursor: pointer;
+`
+const Incremento = styled.p`
+width: 10px;
+font-size: 20px;
+cursor: pointer;
+`
+const Quantidade = styled.p`
+font-size: 18px;
 `
 const Preço = styled.p`
 color: #eb2929;
@@ -215,40 +230,26 @@ font-weight: 600;
 `
 const Carrinho = () => {
 
-    const [preco, setPreco] = useState(0)
+    const { products } = useSelector(rootReducer => rootReducer.cartReducer)
 
-    const [detalhesIsOpen, setDetalhesIsOpen] = useState(false)
+    const dispatch = useDispatch()
 
-    const [qualItem, setQualItem] = useState([])
-
-    const {toggleCarrinhoEstado} = useContext(CarrinhoContext)
-
-    const {toggleCheckoutEstado} = useContext(CarrinhoContext)
-
-    const {sacola, setSacola} = useContext(CarrinhoContext)
-    
-
-    useEffect(() => {
-		setPreco(sacola.reduce((total, obj) => total + obj.preço, 0))
-	}, [sacola])
-
-    const openEspecificacoes = (indice) => {
-        setDetalhesIsOpen(!detalhesIsOpen)
-        setQualItem([indice])
+    const handleClickCart = () => {
+    dispatch(closeCart())
     }
 
     return ( 
         <ContainerGeral>
             <Header>
-                <BtnClose onClick={() => {toggleCarrinhoEstado()}} src="./img/close.png"/>
+                <BtnClose onClick={handleClickCart} src="./img/close.png"/>
             </Header>
                 <Body>
-                    {sacola.length < 1 ? 
+                    {products.length < 1 ? 
                         <TopBody>
                             <Titulo>Carrinho</Titulo>
                             <Estado>Nenhum item ainda, vá comprar!</Estado>
                         </TopBody> : null}
-                        {sacola.map((indice) => {
+                        {products.map((indice) => {
                             return (
                                 <ItemContainer key={indice.id}>
                                     <ImagemContainer>
@@ -256,21 +257,23 @@ const Carrinho = () => {
                                     </ImagemContainer>                
                                     <Infos>
                                         <Nome>{indice.nome}</Nome>
-                                        <Cor>{indice.cor}</Cor>
-                                        <Tamanho>{`Size: ${indice.tamanho}`}</Tamanho>
+                                        <Colecao>{indice.colecao}</Colecao>
+                                        <QuantidadeContainer>
+                                            <Decremento onClick={() => {dispatch(decreaseProductQuantity(indice.id))}}>-</Decremento>
+                                                <Quantidade>{indice.quantity}</Quantidade>
+                                            <Incremento onClick={() => {dispatch(increaseProductQuantity(indice.id))}}>+</Incremento>
+                                        </QuantidadeContainer>
                                         <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
                                     </Infos>
-                                    <IconeDescarte onClick={() => {setSacola(sacola.filter((item) => item !== indice))}} src="./img/trash.png"/>
+                                    <IconeDescarte onClick={() => {dispatch(removeProductFromCart(indice.id))}} src="./img/trash.png"/>
                                 </ItemContainer>)})}
                 </Body>
-                {sacola.length > 0 ?            
+                {products.length > 0 ?            
                     <SubtotalContainer>
-                        <Subtotal>{`R$ ${preco.toFixed(2)}`}</Subtotal>
                         <Link to="/Checkout">
                             <Finalizar onClick={() => {toggleCheckoutEstado()}}>Finalizar Compra</Finalizar>
                         </Link>                    
                     </SubtotalContainer> : null}
-                    {detalhesIsOpen ? <Especificacoes data={qualItem} func={openEspecificacoes}/> : null}
         </ContainerGeral>
     );
 }

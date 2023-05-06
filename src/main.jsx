@@ -13,10 +13,11 @@ import Bermudas from './routes/Bermudas'
 import Checkout from './routes/CheckoutRoute'
 import Perfil from './routes/Perfil'
 
-import { CarrinhoProvider } from './context/CarrinhoContext'
 import { FavoritoProvider } from './context/FavoritosContext'
-import { HistoricoProvider } from './context/HistoricoContext'
+import { DetalhesProvider } from './context/DetalhesContext'
 
+import { Provider } from 'react-redux'
+import store from './redux/store'
 import Favoritos from './components/Favoritos'
 
 
@@ -33,6 +34,8 @@ const camisas = [
     preço: 99.90,
     colecao: "Premium",
     fav: false,
+    nome: "Camisa SIKE",
+
   },
   {
     id: 2,
@@ -42,6 +45,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Premium",
     fav: false,
+    nome: "Camisa SIKE",
     },
     {
     id: 3,
@@ -51,6 +55,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Premium",
     fav: false,
+    nome: "Camisa SIKE",
     },
   {
     id: 4,
@@ -60,6 +65,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Premium",
     fav: false,
+    nome: "Camisa SIKE",
   },
   {
   id: 5,
@@ -69,6 +75,7 @@ const camisas = [
   preço: 99.90,
   colecao: "Premium",
   fav: false,
+  nome: "Camisa SIKE",
   },
   {
     id: 6,
@@ -78,6 +85,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Premium",
     fav: false,
+    nome: "Camisa SIKE",
   },
   {
     id: 7,
@@ -87,6 +95,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Basics",
     fav: false,
+    nome: "Camisa SIKE",
   },
   {
     id: 8,
@@ -96,6 +105,7 @@ const camisas = [
     preço: 99.90,
     colecao: "Basics",
     fav: false,
+    nome: "Camisa SIKE",
   },
   {
     id: 9,
@@ -105,82 +115,8 @@ const camisas = [
     preço: 99.90,
     colecao: "Basics",
     fav: false,
+    nome: "Camisa SIKE",
 },
-]
-
-const camisa_variacoes = [
-  {
-    id: 1,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "P",
-    cor: "Preto"
-  },
-  {
-    id: 2,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "M",
-    cor: "Preto"
-  },
-  {
-    id: 3,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "G",
-    cor: "Preto"
-  },
-  {
-    id: 4,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "P",
-    cor: "Branco"
-  },
-  {
-    id: 5,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "M",
-    cor: "Branco"
-  },
-  {
-    id: 6,
-    url:  "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-frente-2-900x900.jpg",
-    urlSubImage: "https://wantedind.com/wp-content/uploads/2022/01/camiseta-wanted-rebel-preto-costas-600x600.jpg",
-    preço: 99.90,
-    colecao: "Premium",
-    fav: false,
-    tipo: "camiseta",
-    nome: "Camiseta Wanted",
-    tamanho: "G",
-    cor: "Branco"
-  },
 ]
 
 const bermudas = [{
@@ -190,6 +126,7 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
 {
   id: 11,
@@ -198,6 +135,7 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
 {
   id: 12,
@@ -206,6 +144,7 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
 {
   id: 13,
@@ -214,6 +153,7 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
 {
   id: 14,
@@ -222,6 +162,7 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
 {
   id: 15,
@@ -230,76 +171,8 @@ const bermudas = [{
   preço: 109.90,
   colecao: "Berm00",
   fav: false,
+  nome: "Bermuda SIKE",
 },
-]
-
-const bermudas_variacoes = [
-  {
-    id: 10,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "P",
-    cor: "Preto"
-  },
-  {
-    id: 11,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "M",
-    cor: "Preto"
-  },
-  {
-    id: 12,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "G",
-    cor: "Preto"
-  },
-  {
-    id: 13,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "P",
-    cor: "Branco"
-  },
-  {
-    id: 14,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "M",
-    cor: "Branco"
-  },
-  {
-    id: 15,
-    url:  "",
-    preço: 109.90,
-    colecao: "Berm00",
-    fav: false,
-    tipo: "Bermuda",
-    nome: "Bermuda Wanted",
-    tamanho: "G",
-    cor: "Branco"
-  },
 ]
 
 const tenis = [{
@@ -311,6 +184,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 17,
@@ -321,6 +195,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 18,
@@ -331,6 +206,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 19,
@@ -341,6 +217,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 20,
@@ -351,6 +228,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 21,
@@ -361,6 +239,7 @@ const tenis = [{
   colecao: "Sneackers00",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 22,
@@ -371,6 +250,7 @@ const tenis = [{
   colecao: "Emigrante",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 23,
@@ -381,6 +261,7 @@ const tenis = [{
   colecao: "Emigrante",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
 {
   id: 24,
@@ -391,40 +272,8 @@ const tenis = [{
   colecao: "Emigrante",
   fav: false,
   tipo: 'tenis',
+  nome: "Tênis SIKE",
 },
-]
-
-const tenis_variacoes = [
-  {
-    id: 16,
-    url:  "",
-    preço: 139.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: 39,
-  },
-  {
-    id: 17,
-    url:  "",
-    preço: 139.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: 40,
-  },
-  {
-    id: 18,
-    url:  "",
-    preço: 139.90,
-    colecao: "Sneackers00",
-    fav: false,
-    tipo: "Tenis",
-    nome: "Tenis Ous",
-    tamanho: 41,
-  },
 ]
 
 const caps = [{
@@ -434,6 +283,7 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 {
   id: 26,
@@ -442,6 +292,7 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 {
   id: 27,
@@ -450,6 +301,7 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 {
   id: 28,
@@ -458,6 +310,7 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 {
   id: 29,
@@ -466,6 +319,7 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 {
   id: 30,
@@ -474,78 +328,10 @@ const caps = [{
   preço: 74.90,
   colecao: "Cap00",
   fav: false,
+  nome: "boné SIKE",
 },
 ]
 
-const caps_variacoes = [
-  {
-    id: 25,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "P",
-    cor: "Preto"
-  },
-  {
-    id: 26,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "M",
-    cor: "Preto"
-  },
-  {
-    id: 27,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "G",
-    cor: "Preto"
-  },
-  {
-    id: 28,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "P",
-    cor: "Branco"
-  },
-  {
-    id: 29,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "M",
-    cor: "Branco"
-  },
-  {
-    id: 29,
-    url:  "",
-    preço: 74.90,
-    colecao: "Cap00",
-    fav: false,
-    tipo: "Boné",
-    nome: "Boné Wanted",
-    tamanho: "G",
-    cor: "Branco"
-  },
-
-]
 
 
 
@@ -555,10 +341,10 @@ const router = createHashRouter([
     element: <App/>,
     children:[
       {path: "/", element: <Home/>},
-      {path: "Camisas", element: <Camisas data={camisas} variacoes={camisa_variacoes}/>},
-      {path: "FootWear", element: <FootWear data={tenis} variacoes={tenis_variacoes}/>},
-      {path: "HeadWear", element: <HeadWear data={caps} variacoes={caps_variacoes}/>},
-      {path: "Bermudas", element: <Bermudas data={bermudas} variacoes={bermudas_variacoes}/>},
+      {path: "Camisas", element: <Camisas data={camisas}/>},
+      {path: "FootWear", element: <FootWear data={tenis}/>},
+      {path: "HeadWear", element: <HeadWear data={caps}/>},
+      {path: "Bermudas", element: <Bermudas data={bermudas}/>},
       {path: "Favorites", element: <Favoritos/>},
       {path: "Checkout", element: <Checkout/>},
       {path: "Perfil", element: <Perfil/>},
@@ -568,12 +354,12 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <CarrinhoProvider>
+    <Provider store={store}>
         <FavoritoProvider>
-          <HistoricoProvider>
-            <RouterProvider router={router}/>
-          </HistoricoProvider>
+            <DetalhesProvider>
+              <RouterProvider router={router}/>
+            </DetalhesProvider>
         </FavoritoProvider>
-      </CarrinhoProvider>
+      </Provider>
   </React.StrictMode>,
 )

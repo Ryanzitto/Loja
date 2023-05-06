@@ -6,7 +6,8 @@ import Favoritar from "../components/FavButton";
 import Adcionar from "../components/AddButton";
 import Especificacoes from "../components/Especificacoes";
 
-import { useState } from 'react'
+import { useContext } from 'react'
+import { DetalhesContext } from "../context/DetalhesContext";
 
 
 const Containergeral = styled.div`
@@ -86,30 +87,27 @@ height: 20px;
 gap: 10px;
 `
 
-const HeadWear = ({data, variacoes}) => {
+const HeadWear = ({data}) => {
 
-    const [isClicked, setIsClicked] = useState(false)
-
-    const [qualItem, setQualItem] = useState()
-
+    const {defineItem, isOpen, qualItem} = useContext(DetalhesContext)
 
     return (
         <Containergeral>
             <Nav>
                 <Sidebar/>
             </Nav>
-            {isClicked ? <Especificacoes variacoes={variacoes} state={isClicked} setState={setIsClicked} item={qualItem} /> : null}
+            {isOpen ? <Especificacoes item={qualItem} /> : null}
             <Container>
                 {data.map((item)=>{
                     return( 
                     <ContainerProduto key={item.id}>
                         <Produto>
-                            <ImagemProduto src={item.url}/>
+                            <ImagemProduto onClick={() => {defineItem(item)}} src={item.url}/>
                         </Produto>
                         <Colecao>{item.colecao}</Colecao>
                         <PreçoProduto>{item.preço.toFixed(2)} R$</PreçoProduto>
                         <ContainerBotoes>
-                        <Adcionar setItem={setQualItem} state={isClicked} setState={setIsClicked} item={item}/>
+                        <Adcionar item={item}/>
                             <Favoritar item={item}/>
                         </ContainerBotoes>
                     </ContainerProduto>

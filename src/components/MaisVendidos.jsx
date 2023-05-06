@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import Favoritar from "../components/FavButton";
+import Adcionar from "../components/AddButton";
 
 const ContainerDeus= styled.div`
 width: 80vw;
@@ -118,14 +118,14 @@ margin-bottom: -25px;
 `
 
 const Titulo = styled.h1`
-    font-size: 20px;
-    background-color: white;
-    position: absolute;
-    margin-top: -48px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #141414e1;
-    z-index: 1;
+font-size: 20px;
+background-color: white;
+position: absolute;
+margin-top: -48px;
+padding-left: 10px;
+padding-right: 10px;
+color: #141414e1;
+z-index: 1;
 `
 const Ver = styled.button`
 width: 80px;
@@ -142,12 +142,8 @@ const linkStyle = {
     width: '80px'
 }
 
-const MaisVendidos = ({data}) => {
+const MaisVendidos = ({data}) => {    
 
-    const [isClicked, setIsClicked] = useState(false)
-
-    const [qualItem, setQualItem] = useState()
-    
     return (
         <ContainerDeus>
             <ContainerGeral>
@@ -164,9 +160,8 @@ const MaisVendidos = ({data}) => {
                                 <Colecao>{item.colecao}</Colecao>
                                 <PreçoProduto>{item.preço.toFixed(2)} R$</PreçoProduto>
                                 <ContainerBotoes>
-                                    <Link style={linkStyle} to="/FootWear">
-                                        <Ver>Ver item</Ver>
-                                    </Link>                              
+                                    <Adcionar item={item}/>
+                                    <Favoritar item={item}/>                         
                                 </ContainerBotoes>
                             </ContainerProduto>
                             )})}
