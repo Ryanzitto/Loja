@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import Carousel from "../components/Carousel";
@@ -6,7 +6,9 @@ import Tags from "../components/Tags";
 import Footer from "../components/Footer";
 import MaisVendidos from "../components/MaisVendidos";
 import BannerOutLet from "../components/BannerOutLet";
-
+import Cards from "../components/Cards";
+import axios from "axios";
+import Banner from "../components/BannerTeste";
 const maisVendidos = [
   {
     id: 16,
@@ -108,6 +110,8 @@ const Home = () => {
       </Nav>
       <Body>
         <Carousel images={imagensCarrosel} />
+        <Banner />
+        <Cards />
         <Tags />
         <MaisVendidos data={maisVendidos} />
         <BannerOutLet />

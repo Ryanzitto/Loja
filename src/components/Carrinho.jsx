@@ -7,7 +7,11 @@ import {
   increaseProductQuantity,
   removeProductFromCart,
   decreaseProductQuantity,
+  clearCart,
+  openCart,
 } from "../redux/cart/actions";
+
+import { v4 as uuidv4 } from "uuid";
 
 const ContainerGeral = styled.div`
   width: 20vw;
@@ -104,7 +108,7 @@ const Estado = styled.p`
 
 const ItemContainer = styled.div`
   width: 100%;
-  height: 120px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,6 +123,8 @@ const ImagemContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 const ImagemProduto = styled.img`
   width: 100px;
@@ -139,8 +145,8 @@ const Infos = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: 10px;
-  gap: 2px;
+  margin-left: 20px;
+  gap: 8px;
 
   @media only screen and (max-width: 1250px) {
     width: 200px;
@@ -154,6 +160,16 @@ const Colecao = styled.p`
   color: #0f0f0f;
   font-weight: 600;
   font-size: 12px;
+`;
+const Cor = styled.p`
+  color: #0f0f0f;
+  font-weight: 600;
+  font-size: 10px;
+`;
+const Tamanho = styled.p`
+  color: #0f0f0f;
+  font-weight: 600;
+  font-size: 10px;
 `;
 const QuantidadeContainer = styled.div`
   width: 50px;
@@ -251,17 +267,13 @@ const Carrinho = () => {
         ) : null}
         {products.map((indice) => {
           return (
-            <ItemContainer key={indice.id}>
+            <ItemContainer key={uuidv4()}>
               <ImagemContainer>
                 <ImagemProduto src={indice.url} />
-              </ImagemContainer>
-              <Infos>
-                <Nome>{indice.nome}</Nome>
-                <Colecao>{indice.colecao}</Colecao>
                 <QuantidadeContainer>
                   <Decremento
                     onClick={() => {
-                      dispatch(decreaseProductQuantity(indice.id));
+                      dispatch(decreaseProductQuantity(indice));
                     }}
                   >
                     -
@@ -269,17 +281,30 @@ const Carrinho = () => {
                   <Quantidade>{indice.quantity}</Quantidade>
                   <Incremento
                     onClick={() => {
-                      dispatch(increaseProductQuantity(indice.id));
+                      dispatch(increaseProductQuantity(indice));
                     }}
                   >
                     +
                   </Incremento>
                 </QuantidadeContainer>
+              </ImagemContainer>
+
+              <Infos>
+                <Nome>{indice.nome}</Nome>
+                <Colecao>{indice.colecao}</Colecao>
+                {indice.tipo != "Tenis" && <Cor>{indice?.variacao?.cor}</Cor>}
+                {indice?.variacao?.tamanho ? (
+                  <Tamanho>-{indice?.variacao?.tamanho}-</Tamanho>
+                ) : null}
                 <Preço>{`${indice.preço.toFixed(2)} R$`}</Preço>
               </Infos>
               <IconeDescarte
                 onClick={() => {
-                  dispatch(removeProductFromCart(indice.id));
+                  dispatch(removeProductFromCart(indice));
+                  dispatch(closeCart());
+                  setTimeout(() => {
+                    dispatch(openCart());
+                  }, 500);
                 }}
                 src="./img/trash.png"
               />

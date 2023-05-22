@@ -36,7 +36,6 @@ const ContainerItems = styled.div`
 const Item = styled.div`
   width: 330px;
   height: 180px;
-  background-image: url("");
   background-size: 400px;
   position: relative;
   filter: grayscale(1);

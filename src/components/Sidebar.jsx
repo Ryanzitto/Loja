@@ -12,6 +12,10 @@ import { openCart } from "../redux/cart/actions";
 const linkStyle = {
   textDecoration: "none",
   color: "black",
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 const Container = styled.div`
@@ -66,9 +70,10 @@ const ListNav = styled.div`
   height: 65%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
-
+  gap: 20px;
+  margin-top: 20px;
   @media only screen and (max-width: 1000px) {
     display: flex;
     flex-direction: row;
@@ -110,16 +115,9 @@ const Section = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  &:hover {
-    background-color: #58585814;
-  }
+  justify-content: center;
   @media only screen and (max-width: 1000px) {
     width: 100px;
-
-    &:hover {
-      background-color: transparent;
-    }
   }
 `;
 const Icon = styled.img`
@@ -127,7 +125,7 @@ const Icon = styled.img`
   height: 25px;
   cursor: pointer;
   margin-left: 20px;
-
+  display: none;
   @media only screen and (max-width: 1000px) {
     background-color: white;
     padding: 10px;
@@ -136,9 +134,20 @@ const Icon = styled.img`
 `;
 const Texto = styled.p`
   font-family: "Roboto", sans-serif;
-  margin-left: 30px;
   font-weight: 500;
-
+  color: #222222eb;
+  letter-spacing: 1px;
+  padding: 5px 15px;
+  border-radius: 3px;
+  &:hover {
+    animation: animaTexto3 1s both;
+    @keyframes animaTexto3 {
+      to {
+        background-color: #a840c2a7;
+        color: white;
+      }
+    }
+  }
   @media only screen and (max-width: 1000px) {
     display: none;
   }
@@ -146,7 +155,7 @@ const Texto = styled.p`
     font-size: 22px;
   }
 `;
-const CarrinhoContainer = styled.div`
+const SectionIcons = styled.div`
   height: 150px;
   width: 100%;
   display: flex;
@@ -164,16 +173,24 @@ const CarrinhoContainer = styled.div`
     justify-content: flex-end;
     margin-right: 20px;
   }
+`;
+
+const DivIcone = styled.div`
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  @media only screen and (max-width: 800px) {
+  }
 
   @media only screen and (max-width: 1000px) {
-    border: none;
-    margin-top: 0px;
   }
   @media only screen and (min-width: 1500px) {
-    margin-top: 50px;
   }
 `;
-const IconeCarrinho = styled.img`
+const Icone = styled.img`
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -231,62 +248,63 @@ const Sidebar = () => {
         </Link>
       </LogoContainer>
       <ListNav>
-        <Link to="/Perfil" style={linkStyle}>
+        {/* <Link to="/Perfil" style={linkStyle}>
           <Section>
             <Icon src="./img/account.png" />
-            <Texto>Profile</Texto>
+            <Texto>Perfil</Texto>
           </Section>
-        </Link>
+        </Link> */}
         <Link to="/" style={linkStyle}>
           <Section>
             <Icon src="./img/house.png" />
-            <Texto>Home</Texto>
+            <Texto>Inicio</Texto>
           </Section>
         </Link>
-        <Link to="/Camisas" style={linkStyle}>
+        <Link to="/Vestuario" style={linkStyle}>
           <Section>
             <Icon src="./img/shirt.png" />
-            <Texto>Tshirts</Texto>
+            <Texto>Vestuário</Texto>
           </Section>
         </Link>
-        <Link to="/Bermudas" style={linkStyle}>
+        <Link to="/ActionFigure" style={linkStyle}>
           <Section>
             <Icon src="./img/shorts.png" />
-            <Texto>Bermudas</Texto>
+            <Texto>Action F.</Texto>
           </Section>
         </Link>
-        <Link to="/FootWear" style={linkStyle}>
+        <Link to="/Acessorios" style={linkStyle}>
           <Section>
             <Icon src="./img/shoes.png" />
-            <Texto>FootWear</Texto>
+            <Texto>Acessórios</Texto>
           </Section>
         </Link>
-        <Link to="/HeadWear" style={linkStyle}>
+        {/* <Link to="/HeadWear" style={linkStyle}>
           <Section>
             <Icon src="./img/cap.png" />
-            <Texto>Headwear</Texto>
+            <Texto>Bonés</Texto>
           </Section>
-        </Link>
-        <Link to="/Favorites" style={linkStyle}>
-          <Section>
-            <Icon src="./img/heart-full.png" />
-            <Texto>Favorites</Texto>
-            {favorito.length > 0 && (
+        </Link> */}
+      </ListNav>
+      <SectionIcons>
+        <DivIcone>
+          <Icone onClick={handleClickCart} src="./img/add.png" />
+          {products.length > 0 ? (
+            <AlertaContainer>
+              <Alerta>{products.length}</Alerta>
+            </AlertaContainer>
+          ) : null}
+        </DivIcone>
+        <DivIcone>
+          <Link to="/Favorites" style={linkStyle}>
+            <Icone src="./img/heart-empty.png" />
+            {favorito.length > 0 ? (
               <AlertaContainer>
                 <Alerta>{favorito.length}</Alerta>
               </AlertaContainer>
-            )}
-          </Section>
-        </Link>
-      </ListNav>
-      <CarrinhoContainer>
-        <IconeCarrinho onClick={handleClickCart} src="./img/add.png" />
-        {products.length > 0 ? (
-          <AlertaContainer>
-            <Alerta>{products.length}</Alerta>
-          </AlertaContainer>
-        ) : null}
-      </CarrinhoContainer>
+            ) : null}
+          </Link>
+        </DivIcone>
+      </SectionIcons>
     </Container>
   );
 };

@@ -1,8 +1,22 @@
-import {createStore, applyMiddleware} from 'redux'
-import rootReducer from './root-reducer'
-import logger  from "redux-logger"
+import { createStore, applyMiddleware } from "redux";
 
+import { persistStore, persistReducer } from "redux-persist";
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+import storage from "redux-persist/lib/storage";
 
-export default store;
+const persistConfig = {
+  key: "cart",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+import rootReducer from "./root-reducer";
+
+import logger from "redux-logger";
+
+const store = createStore(persistedReducer, applyMiddleware(logger));
+
+const persistor = persistStore(store);
+
+export { store, persistor };

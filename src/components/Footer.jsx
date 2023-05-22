@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
-  background-color: #000000e8;
+  background: linear-gradient(to right, #a840c2dd, #8b3d9e);
   height: 300px;
   width: 100%;
   display: flex;
   align-items: center;
   margin-top: 100px;
   align-self: flex-end;
+  box-shadow: 0px -4px 5px #cfcdcd;
 
   @media screen and (max-width: 500px) {
     flex-direction: column;
+    height: 600px;
   }
   @media screen and (min-width: 1500px) {
     margin-top: 150px;
@@ -21,7 +24,7 @@ const Container = styled.div`
 const Logo = styled.img`
   width: 180px;
   height: 130px;
-  opacity: 0.4;
+  opacity: ${(props) => (props.$primary ? "#a840c2" : "black")};
   border-radius: 10px;
   cursor: pointer;
 
@@ -29,7 +32,7 @@ const Logo = styled.img`
     animation: animate 1s ease both;
     @keyframes animate {
       to {
-        opacity: 0.9;
+        opacity: 1;
       }
     }
   }
@@ -52,22 +55,20 @@ const Left = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     display: none;
   }
 `;
 
 const Right = styled.div`
-  flex: 1;
+  flex: 2;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
-
-  @media screen and (max-width: 600px) {
-    font-size: 30px;
+  @media screen and (max-width: 500px) {
     flex-direction: column;
   }
 `;
@@ -75,58 +76,71 @@ const List = styled.ul`
   gap: 20px;
   display: flex;
   flex-direction: column;
-
-  @media screen and (min-width: 501px) and (max-width: 600px) {
-    gap: 2px;
-    align-items: center;
-  }
-  @media screen and (max-width: 500px) {
-    gap: 25px;
-    align-items: center;
-  }
 `;
 const ListItem = styled.a`
   list-style: none;
   letter-spacing: 8px;
   margin-bottom: 10px;
   cursor: pointer;
-  color: #ffffff;
-  opacity: 0.7;
+  color: white;
+  opacity: 0.9;
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 10px;
   text-decoration: none;
+  font-weight: 900;
   &:hover {
     opacity: 1;
-  }
-  @media only screen and(min-width: 501px) and (max-width: 600px) {
-    font-size: 10px;
-  }
-  @media only screen and (min-width: 1600px) {
-    font-size: 20px;
-  }
-  @media only screen and (max-width: 500px) {
-    font-size: 16px;
   }
 `;
 const Line1 = styled.div`
   height: 50%;
   width: 0.2px;
-  background-color: #ffffff28;
-
+  background-color: #ffffff;
   @media screen and (max-width: 600px) {
     display: none;
   }
 `;
 
-const Footer = () => {
+const HeaderList = styled.h3`
+  font-size: 14px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: white;
+  text-align: start;
+  padding-bottom: 20px;
+  margin-left: 8px;
+  @media screen and (max-width: 600px) {
+    padding-bottom: 5px;
+  }
+`;
+
+const Footer = ({ primary }) => {
   return (
-    <Container>
+    <Container $primary={primary}>
       <Left>
         <Logo src="./img/logo.jfif" />
       </Left>
       <Line1 />
       <Right>
         <List>
+          <HeaderList>MINHA CONTA</HeaderList>
+          <Link style={{ textDecoration: "none" }}>
+            <ListItem href="https://github.com/Ryanzitto" target="_blank">
+              PERFIL
+            </ListItem>
+          </Link>
+          <Link style={{ textDecoration: "none" }}>
+            <ListItem
+              href="https://www.linkedin.com/in/ryan-henrique-1b4075233/"
+              target="_blank"
+            >
+              HISTORICO
+            </ListItem>
+          </Link>
+          <ListItem>PORTIFOLIO</ListItem>
+        </List>
+        <List>
+          <HeaderList>CONTATO</HeaderList>
           <ListItem href="https://github.com/Ryanzitto" target="_blank">
             GITHUB
           </ListItem>
@@ -136,15 +150,20 @@ const Footer = () => {
           >
             LINKEDIN
           </ListItem>
-          <ListItem
-            style={{
-              opacity: 0.2,
-              textDecoration: "line-through",
-              cursor: "not-allowed",
-            }}
-          >
-            PORTIFOLIO
+          <ListItem>PORTIFOLIO</ListItem>
+        </List>
+        <List>
+          <HeaderList>SOBRE</HeaderList>
+          <ListItem href="https://github.com/Ryanzitto" target="_blank">
+            GITHUB
           </ListItem>
+          <ListItem
+            href="https://www.linkedin.com/in/ryan-henrique-1b4075233/"
+            target="_blank"
+          >
+            LINKEDIN
+          </ListItem>
+          <ListItem>PORTIFOLIO</ListItem>
         </List>
       </Right>
     </Container>

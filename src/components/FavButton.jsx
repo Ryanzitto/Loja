@@ -3,23 +3,21 @@ import { useState, useContext } from "react";
 import { FavoritosContext } from "../context/FavoritosContext";
 
 const FavoritarIcon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   padding: 3px;
   cursor: pointer;
   position: absolute;
-  margin-left: 50px;
+  margin-left: 20px;
+  margin-top: -7px;
 
   &:hover {
-    animation: animacao 0.5s ease both;
-    @keyframes animacao {
-      from {
-        width: 20px;
-        height: 20px;
-      }
+    animation: animaBtn 0.5s ease both;
+    @keyframes animaBtn {
       to {
-        width: 23px;
-        height: 23px;
+        padding: 0;
+        width: 43px;
+        height: 43px;
         transform: translateY(-5px);
       }
     }

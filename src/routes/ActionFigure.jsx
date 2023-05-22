@@ -2,10 +2,10 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import Especificacoes from "../components/Especificacoes";
 import ButtonVisualizar from "../components/Button";
+import Especificacoes from "../components/Especificacoes";
 
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { DetalhesContext } from "../context/DetalhesContext";
 import { Link } from "react-router-dom";
 
@@ -40,13 +40,11 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
   @media only screen and (max-width: 1000px) {
     width: 100vw;
   }
-
   @media only screen and (min-width: 1000px) {
-    margin-left: 50px;
+    margin-left: 52px;
   }
 `;
 const ContainerProduto = styled.div`
@@ -56,6 +54,15 @@ const ContainerProduto = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  animation: animaProduto 2s ease;
+  @keyframes animaProduto {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 const Produto = styled.div`
   width: 200px;
@@ -96,7 +103,7 @@ const ContainerBotoes = styled.div`
 const Vizualizar = styled.button`
   width: 100px;
   height: 30px;
-  border: 1.5px solid #222222eb;
+  border: 1.5px solid#222222eb;
   background-color: #ffffffec;
   font-size: 14px;
   font-weight: 500;
@@ -107,18 +114,67 @@ const Vizualizar = styled.button`
   letter-spacing: 0.5px;
   color: #0f0f0feb;
   &:hover {
-    animation: anime 1s both;
-    @keyframes anime {
+    animation: anime 1s both ease;
+  }
+`;
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: center;
+`;
+const ContainerBtn = styled.div`
+  display: flex;
+  height: 100%;
+  width: 300px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+const Button = styled.button`
+  width: 100px;
+  height: 25px;
+  border: 1.5px solid #222222eb;
+  color: #222222eb;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  &:hover {
+    animation: animacaoHover 500ms ease both;
+    @keyframes animacaoHover {
       to {
-        background-color: #222222eb;
-        color: white;
-        border: none;
+        border: 1.5px solid #a840c2;
+        color: #a840c2;
       }
     }
   }
 `;
-const FootWear = ({ data }) => {
+const TipoClick = {
+  backgroundColor: "#a840c2",
+  border: "1.5px solid #a840c2",
+  color: "white",
+};
+const ActionFigure = ({ data }) => {
   const { defineItem, isOpen, qualItem } = useContext(DetalhesContext);
+
+  const [produtoFiltrado, setProdutoFiltrado] = useState(data);
+
+  const [tipoRenderizado, setTipoRenderizado] = useState("Todos");
+
+  const handleClickHeroi = () => {
+    setProdutoFiltrado(data.filter((item) => item.subTipo === "Heroi"));
+    setTipoRenderizado("Heroi");
+  };
+
+  const handleClickAnime = () => {
+    setProdutoFiltrado(data.filter((item) => item.subTipo === "Anime"));
+    setTipoRenderizado("Anime");
+  };
+  const handleClickTodos = () => {
+    setProdutoFiltrado(data);
+    setTipoRenderizado("Todos");
+  };
 
   return (
     <Containergeral>
@@ -127,7 +183,23 @@ const FootWear = ({ data }) => {
         <Sidebar />
       </Nav>
       <Container>
-        {data.map((item) => {
+        <Header>
+          <ContainerBtn>
+            <Button
+              style={tipoRenderizado === "Anime" ? TipoClick : null}
+              onClick={handleClickAnime}
+            >
+              Anime
+            </Button>
+            <Button
+              style={tipoRenderizado === "Heroi" ? TipoClick : null}
+              onClick={handleClickHeroi}
+            >
+              Marvel/DC
+            </Button>
+          </ContainerBtn>
+        </Header>
+        {produtoFiltrado.map((item) => {
           return (
             <ContainerProduto key={item.id}>
               <Produto>
@@ -147,4 +219,4 @@ const FootWear = ({ data }) => {
   );
 };
 
-export default FootWear;
+export default ActionFigure;

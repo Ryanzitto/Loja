@@ -72,7 +72,7 @@ const Left = styled.div`
 `;
 const Titulo = styled.h1`
   font-size: 20px;
-  color: #ca9bd8;
+  color: #a840c2;
   opacity: 0.7;
   letter-spacing: 1px;
 `;
@@ -128,9 +128,9 @@ const Confirma = styled.button`
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
-  border: 2px solid #ca9bd8;
+  border: 2px solid #a840c2;
   background-color: white;
-  color: #ca9bd8;
+  color: #a840c2;
   font-weight: 500;
   margin-top: 15px;
   &:hover {
